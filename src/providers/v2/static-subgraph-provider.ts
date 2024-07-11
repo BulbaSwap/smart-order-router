@@ -1,5 +1,5 @@
-import { ChainId, Token } from '@uniswap/sdk-core';
-import { Pair } from '@uniswap/v2-sdk';
+import { ChainId, Token } from '@ququzone/sdk-core';
+import { Pair } from '@ququzone/v2-sdk';
 import _ from 'lodash';
 
 import { WRAPPED_NATIVE_CURRENCY } from '../../util/chains';
@@ -33,6 +33,7 @@ import {
   USDC_ZKSYNC, USDCE_ZKSYNC,
   USDT_ARBITRUM,
   USDT_BNB,
+  USDT_HOLESKY,
   USDT_MAINNET,
   USDT_OPTIMISM,
   WBTC_ARBITRUM,
@@ -113,6 +114,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.ROOTSTOCK]: [WRAPPED_NATIVE_CURRENCY[ChainId.ROOTSTOCK]!],
   [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!, USDB_BLAST],
   [ChainId.ZKSYNC]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZKSYNC]!, USDCE_ZKSYNC, USDC_ZKSYNC],
+  [ChainId.HOLESKY]: [WRAPPED_NATIVE_CURRENCY[ChainId.HOLESKY]!, USDT_HOLESKY]
 };
 
 /**
@@ -128,7 +130,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
  * @class StaticV2SubgraphProvider
  */
 export class StaticV2SubgraphProvider implements IV2SubgraphProvider {
-  constructor(private chainId: ChainId) {}
+  constructor(private chainId: ChainId) { }
 
   public async getPools(
     tokenIn?: Token,

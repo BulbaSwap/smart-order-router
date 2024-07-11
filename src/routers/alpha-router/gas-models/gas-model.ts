@@ -3,9 +3,9 @@ import {
   ChainId,
   CurrencyAmount as CurrencyAmountRaw,
   Token,
-} from '@uniswap/sdk-core';
-import { Pair } from '@uniswap/v2-sdk';
-import { Pool } from '@uniswap/v3-sdk';
+} from '@ququzone/sdk-core';
+import { Pair } from '@ququzone/v2-sdk';
+import { Pool } from '@ququzone/v3-sdk';
 
 import { ProviderConfig } from '../../../providers/provider';
 import {

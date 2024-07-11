@@ -4,7 +4,7 @@ import {
   Ether,
   NativeCurrency,
   Token
-} from '@uniswap/sdk-core';
+} from '@ququzone/sdk-core';
 
 // WIP: Gnosis, Moonbeam
 export const SUPPORTED_CHAINS: ChainId[] = [
@@ -523,6 +523,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId in ChainId]: Token } = {
   [ChainId.ZKSYNC]: new Token(
     ChainId.ZKSYNC,
     '0x5aea5775959fbc2557cc8789bc1bf90a239d9a91',
+    18,
+    'WETH',
+    'Wrapped Ether'
+  ),
+  [ChainId.HOLESKY]: new Token(
+    ChainId.HOLESKY,
+    '0x5300000000000000000000000000000000000011',
     18,
     'WETH',
     'Wrapped Ether'
