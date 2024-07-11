@@ -108,6 +108,8 @@ export const ID_TO_CHAIN_ID = (id: number): ChainId => {
       return ChainId.ZORA;
     case 324:
       return ChainId.ZKSYNC;
+    case 2810:
+      return ChainId.HOLESKY;
     default:
       throw new Error(`Unknown chain id: ${id}`);
   }
@@ -136,6 +138,7 @@ export enum ChainName {
   BLAST = 'blast-mainnet',
   ZORA = 'zora-mainnet',
   ZKSYNC = 'zksync-mainnet',
+  HOLESKY = 'morph-testnet',
 }
 
 export enum NativeCurrencyName {
@@ -230,6 +233,11 @@ export const NATIVE_NAMES_BY_ID: { [chainId: number]: string[] } = {
     'ETHER',
     '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
   ],
+  [ChainId.HOLESKY]: [
+    'ETH',
+    'ETHER',
+    '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+  ],
 };
 
 export const NATIVE_CURRENCY: { [chainId: number]: NativeCurrencyName } = {
@@ -254,6 +262,7 @@ export const NATIVE_CURRENCY: { [chainId: number]: NativeCurrencyName } = {
   [ChainId.BLAST]: NativeCurrencyName.ETHER,
   [ChainId.ZORA]: NativeCurrencyName.ETHER,
   [ChainId.ZKSYNC]: NativeCurrencyName.ETHER,
+  [ChainId.HOLESKY]: NativeCurrencyName.ETHER,
 };
 
 export const ID_TO_NETWORK_NAME = (id: number): ChainName => {
@@ -302,6 +311,8 @@ export const ID_TO_NETWORK_NAME = (id: number): ChainName => {
       return ChainName.ZORA;
     case 324:
       return ChainName.ZKSYNC;
+    case 2810:
+      return ChainName.HOLESKY;
     default:
       throw new Error(`Unknown chain id: ${id}`);
   }
@@ -351,6 +362,8 @@ export const ID_TO_PROVIDER = (id: ChainId): string => {
       return process.env.JSON_RPC_PROVIDER_ZORA!;
     case ChainId.ZKSYNC:
       return process.env.JSON_RPC_PROVIDER_ZKSYNC!;
+    case ChainId.HOLESKY:
+      return process.env.JSON_RPC_PROVIDER_HOLESKY!;
     default:
       throw new Error(`Chain id: ${id} not supported`);
   }

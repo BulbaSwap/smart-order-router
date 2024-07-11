@@ -50,6 +50,7 @@ import {
   USDT_ARBITRUM,
   USDT_BNB,
   USDT_GOERLI,
+  USDT_HOLESKY,
   USDT_MAINNET,
   USDT_OPTIMISM,
   USDT_OPTIMISM_GOERLI,
@@ -118,6 +119,7 @@ export const usdGasTokensByChain: { [chainId in ChainId]?: Token[] } = {
   [ChainId.BLAST]: [USDB_BLAST],
   [ChainId.ZORA]: [USDC_ZORA],
   [ChainId.ZKSYNC]: [DAI_ZKSYNC, USDCE_ZKSYNC, USDC_ZKSYNC],
+  [ChainId.HOLESKY]: [USDT_HOLESKY],
 };
 
 export type L1ToL2GasCosts = {

@@ -118,6 +118,7 @@ export const UNISWAP_MULTICALL_ADDRESSES: AddressMap = {
   [ChainId.BLAST]: CHAIN_TO_ADDRESSES_MAP[ChainId.BLAST].multicallAddress,
   [ChainId.ZORA]: CHAIN_TO_ADDRESSES_MAP[ChainId.ZORA].multicallAddress,
   [ChainId.ZKSYNC]: CHAIN_TO_ADDRESSES_MAP[ChainId.ZKSYNC].multicallAddress,
+  [ChainId.HOLESKY]: CHAIN_TO_ADDRESSES_MAP[ChainId.HOLESKY].multicallAddress,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
 
