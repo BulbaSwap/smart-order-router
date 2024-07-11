@@ -41,6 +41,7 @@ export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
   [ChainId.BLAST]: CHAIN_TO_ADDRESSES_MAP[ChainId.BLAST].v3CoreFactoryAddress,
   [ChainId.ZORA]: CHAIN_TO_ADDRESSES_MAP[ChainId.ZORA].v3CoreFactoryAddress,
   [ChainId.ZKSYNC]: CHAIN_TO_ADDRESSES_MAP[ChainId.ZKSYNC].v3CoreFactoryAddress,
+  [ChainId.HOLESKY]: CHAIN_TO_ADDRESSES_MAP[ChainId.HOLESKY].v3CoreFactoryAddress,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
 
@@ -66,6 +67,7 @@ export const QUOTER_V2_ADDRESSES: AddressMap = {
   [ChainId.BLAST]: CHAIN_TO_ADDRESSES_MAP[ChainId.BLAST].quoterAddress,
   [ChainId.ZORA]: CHAIN_TO_ADDRESSES_MAP[ChainId.ZORA].quoterAddress,
   [ChainId.ZKSYNC]: CHAIN_TO_ADDRESSES_MAP[ChainId.ZKSYNC].quoterAddress,
+  [ChainId.HOLESKY]: CHAIN_TO_ADDRESSES_MAP[ChainId.HOLESKY].quoterAddress,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
 
@@ -83,6 +85,7 @@ export const NEW_QUOTER_V2_ADDRESSES: AddressMap = {
   [ChainId.BLAST]: '0x9D0F15f2cf58655fDDcD1EE6129C547fDaeD01b1',
   [ChainId.ZORA]: '0x9D0F15f2cf58655fDDcD1EE6129C547fDaeD01b1',
   [ChainId.ZKSYNC]: '0x071Bd2063dF031EDd110E27C6F4CDe50A3DeF2d4',
+  [ChainId.HOLESKY]: '0x39471D2D3A8645E49800d693b7fC683156880Afd',
 };
 
 export const MIXED_ROUTE_QUOTER_V1_ADDRESSES: AddressMap = {
@@ -162,7 +165,6 @@ export const WETH9: {
     | ChainId.AVALANCHE
     // TODO: remove ROOTSTOCK once we support both at the routing level
     | ChainId.ROOTSTOCK
-    | ChainId.HOLESKY
   >]: Token;
 } = {
   [ChainId.MAINNET]: new Token(
@@ -266,6 +268,13 @@ export const WETH9: {
   [ChainId.ZKSYNC]: new Token(
     ChainId.ZKSYNC,
     '0x5aea5775959fbc2557cc8789bc1bf90a239d9a91',
+    18,
+    'WETH',
+    'Wrapped Ether'
+  ),
+  [ChainId.HOLESKY]: new Token(
+    ChainId.HOLESKY,
+    '0x5300000000000000000000000000000000000011',
     18,
     'WETH',
     'Wrapped Ether'
