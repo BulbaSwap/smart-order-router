@@ -12,7 +12,7 @@ import {
   Token,
   TradeType,
 } from '@ququzone/sdk-core';
-import { SwapOptions as UniversalRouterSwapOptions } from '@uniswap/universal-router-sdk';
+import { SwapOptions as UniversalRouterSwapOptions } from '@ququzone/universal-router-sdk';
 import { Route as V2RouteRaw } from '@ququzone/v2-sdk';
 import {
   MethodParameters as SDKMethodParameters,

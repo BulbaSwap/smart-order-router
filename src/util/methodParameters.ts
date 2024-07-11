@@ -8,7 +8,7 @@ import { ChainId, Currency, TradeType } from '@ququzone/sdk-core';
 import {
   SwapRouter as UniversalRouter,
   UNIVERSAL_ROUTER_ADDRESS,
-} from '@uniswap/universal-router-sdk';
+} from '@ququzone/universal-router-sdk';
 import { Route as V2RouteRaw } from '@ququzone/v2-sdk';
 import { Route as V3RouteRaw } from '@ququzone/v3-sdk';
 import _ from 'lodash';

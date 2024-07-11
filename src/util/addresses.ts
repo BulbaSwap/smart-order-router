@@ -162,6 +162,7 @@ export const WETH9: {
     | ChainId.AVALANCHE
     // TODO: remove ROOTSTOCK once we support both at the routing level
     | ChainId.ROOTSTOCK
+    | ChainId.HOLESKY
   >]: Token;
 } = {
   [ChainId.MAINNET]: new Token(
