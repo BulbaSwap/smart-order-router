@@ -44,6 +44,7 @@ import {
   USDC_SEPOLIA,
   USDT_ARBITRUM,
   USDT_BNB,
+  USDT_HOLESKY,
   USDT_MAINNET,
   USDT_OPTIMISM,
   USDT_OPTIMISM_GOERLI,
@@ -173,6 +174,7 @@ export const CACHE_SEED_TOKENS: {
   },
   [ChainId.HOLESKY]: {
     WETH: WRAPPED_NATIVE_CURRENCY[ChainId.HOLESKY],
+    USDT: USDT_HOLESKY,
   },
   // Currently we do not have providers for Moonbeam mainnet or Gnosis testnet
 };

@@ -26,6 +26,7 @@ export const SUPPORTED_CHAINS: ChainId[] = [
   ChainId.BLAST,
   ChainId.ZORA,
   ChainId.ZKSYNC,
+  ChainId.HOLESKY,
   // Gnosis and Moonbeam don't yet have contracts deployed yet
 ];
 
@@ -38,6 +39,7 @@ export const V2_SUPPORTED = [
   ChainId.BASE,
   ChainId.BNB,
   ChainId.AVALANCHE,
+  ChainId.HOLESKY,
 ];
 
 export const HAS_L1_FEE = [
@@ -697,6 +699,30 @@ class AvalancheNativeCurrency extends NativeCurrency {
   }
 }
 
+function isHolesky(chainId: number): chainId is ChainId.HOLESKY {
+  return chainId === ChainId.HOLESKY;
+}
+
+class HoleskyNativeCurrency extends NativeCurrency {
+  equals(other: Currency): boolean {
+    return other.isNative && other.chainId === this.chainId;
+  }
+
+  get wrapped(): Token {
+    if (!isHolesky(this.chainId)) throw new Error('Not Holesky');
+    const nativeCurrency = WRAPPED_NATIVE_CURRENCY[this.chainId];
+    if (nativeCurrency) {
+      return nativeCurrency;
+    }
+    throw new Error(`Does not support this chain ${this.chainId}`);
+  }
+
+  public constructor(chainId: number) {
+    if (!isHolesky(chainId)) throw new Error('Not Holesky');
+    super(chainId, 18, 'WETH', 'Holesky');
+  }
+}
+
 export class ExtendedEther extends Ether {
   public get wrapped(): Token {
     if (this.chainId in WRAPPED_NATIVE_CURRENCY) {
@@ -734,6 +760,8 @@ export function nativeOnChain(chainId: number): NativeCurrency {
     cachedNativeCurrency[chainId] = new BnbNativeCurrency(chainId);
   } else if (isAvax(chainId)) {
     cachedNativeCurrency[chainId] = new AvalancheNativeCurrency(chainId);
+  } else if (isHolesky(chainId)) {
+    cachedNativeCurrency[chainId] = new HoleskyNativeCurrency(chainId);
   } else {
     cachedNativeCurrency[chainId] = ExtendedEther.onChain(chainId);
   }
