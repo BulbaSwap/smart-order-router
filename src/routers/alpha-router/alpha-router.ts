@@ -777,7 +777,7 @@ export class AlphaRouter
             chainId,
             // TODO change to internal service
             // `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v2/${chainName}.json`,
-            `http://localhost:3000/pools/v2`,
+            `https://subgraph-data-production.up.railway.app/pools/2810/v2`,
             undefined,
             0
           ),
