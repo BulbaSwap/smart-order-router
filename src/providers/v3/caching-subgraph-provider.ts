@@ -22,7 +22,7 @@ export class CachingV3SubgraphProvider implements IV3SubgraphProvider {
     private chainId: ChainId,
     protected subgraphProvider: IV3SubgraphProvider,
     private cache: ICache<V3SubgraphPool[]>
-  ) { }
+  ) {}
 
   public async getPools(): Promise<V3SubgraphPool[]> {
     const cachedPools = await this.cache.get(this.SUBGRAPH_KEY(this.chainId));

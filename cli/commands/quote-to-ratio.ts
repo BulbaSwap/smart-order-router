@@ -91,7 +91,8 @@ export class QuoteToRatio extends BaseCommand {
     );
     if (!pool) {
       log.error(
-        `Could not find pool. ${debug ? '' : 'Run in debug mode for more info'
+        `Could not find pool. ${
+          debug ? '' : 'Run in debug mode for more info'
         }.`
       );
       return;
@@ -145,7 +146,6 @@ export class QuoteToRatio extends BaseCommand {
         estimatedGasUsed,
         estimatedGasUsedQuoteToken,
         estimatedGasUsedUSD,
-        estimatedGasUsedGasToken,
         gasPriceWei,
         methodParameters,
         quote,
@@ -159,7 +159,6 @@ export class QuoteToRatio extends BaseCommand {
         quoteGasAdjusted,
         estimatedGasUsedQuoteToken,
         estimatedGasUsedUSD,
-        estimatedGasUsedGasToken,
         methodParameters,
         blockNumber,
         estimatedGasUsed,
@@ -168,7 +167,8 @@ export class QuoteToRatio extends BaseCommand {
       return;
     } else if (swapRoutes.status === SwapToRatioStatus.NO_ROUTE_FOUND) {
       log.error(
-        `${swapRoutes.error}. ${debug ? '' : 'Run in debug mode for more info'
+        `${swapRoutes.error}. ${
+          debug ? '' : 'Run in debug mode for more info'
         }.`
       );
       return;

@@ -6,7 +6,7 @@ import { FeeAmount } from '@bulbaswap/v3-sdk';
 import { parseUnits } from '@ethersproject/units';
 import JSBI from 'jsbi';
 
-export class CurrencyAmount extends CurrencyAmountRaw<Currency> { }
+export class CurrencyAmount extends CurrencyAmountRaw<Currency> {}
 
 export const MAX_UINT160 = '0xffffffffffffffffffffffffffffffffffffffff';
 

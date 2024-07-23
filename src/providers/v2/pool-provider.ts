@@ -15,7 +15,9 @@ import { log } from '../../util/log';
 import { poolToString } from '../../util/routes';
 import { IMulticallProvider, Result } from '../multicall-provider';
 import { ProviderConfig } from '../provider';
-import { ITokenPropertiesProvider } from '../token-properties-provider';
+import {
+  ITokenPropertiesProvider,
+} from '../token-properties-provider';
 import { TokenValidationResult } from '../token-validator-provider';
 
 type IReserves = {
@@ -85,7 +87,7 @@ export class V2PoolProvider implements IV2PoolProvider {
       minTimeout: 50,
       maxTimeout: 500,
     }
-  ) { }
+  ) {}
 
   public async getPools(
     tokenPairs: [Token, Token][],
@@ -141,9 +143,10 @@ export class V2PoolProvider implements IV2PoolProvider {
     ]);
 
     log.info(
-      `Got reserves for ${poolAddressSet.size} pools ${providerConfig?.blockNumber
-        ? `as of block: ${await providerConfig?.blockNumber}.`
-        : ``
+      `Got reserves for ${poolAddressSet.size} pools ${
+        providerConfig?.blockNumber
+          ? `as of block: ${await providerConfig?.blockNumber}.`
+          : ``
       }`
     );
 
@@ -173,12 +176,8 @@ export class V2PoolProvider implements IV2PoolProvider {
           token0.symbol,
           token0.name,
           true, // at this point we know it's valid token address
-          tokenPropertiesMap[
-            token0.address.toLowerCase()
-          ]?.tokenFeeResult?.buyFeeBps,
-          tokenPropertiesMap[
-            token0.address.toLowerCase()
-          ]?.tokenFeeResult?.sellFeeBps
+          tokenPropertiesMap[token0.address.toLowerCase()]?.tokenFeeResult?.buyFeeBps,
+          tokenPropertiesMap[token0.address.toLowerCase()]?.tokenFeeResult?.sellFeeBps
         );
       }
 
@@ -193,12 +192,8 @@ export class V2PoolProvider implements IV2PoolProvider {
           token1.symbol,
           token1.name,
           true, // at this point we know it's valid token address
-          tokenPropertiesMap[
-            token1.address.toLowerCase()
-          ]?.tokenFeeResult?.buyFeeBps,
-          tokenPropertiesMap[
-            token1.address.toLowerCase()
-          ]?.tokenFeeResult?.sellFeeBps
+          tokenPropertiesMap[token1.address.toLowerCase()]?.tokenFeeResult?.buyFeeBps,
+          tokenPropertiesMap[token1.address.toLowerCase()]?.tokenFeeResult?.sellFeeBps
         );
       }
 

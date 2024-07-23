@@ -134,13 +134,7 @@ export function computeAllRoutes<
     }
   };
 
-  computeRoutes(
-    tokenIn,
-    tokenOut,
-    [],
-    poolsUsed,
-    new Set([tokenIn.address.toLowerCase()])
-  );
+  computeRoutes(tokenIn, tokenOut, [], poolsUsed, new Set([tokenIn.address.toLowerCase()]));
 
   log.info(
     {

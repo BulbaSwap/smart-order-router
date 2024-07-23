@@ -44,14 +44,10 @@ import {
   UniswapMulticallProvider,
   V2PoolProvider,
   V3PoolProvider,
-  V3RouteWithValidQuote
+  V3RouteWithValidQuote,
 } from '../src';
-import {
-  LegacyGasPriceProvider
-} from '../src/providers/legacy-gas-price-provider';
-import {
-  OnChainGasPriceProvider
-} from '../src/providers/on-chain-gas-price-provider';
+import { LegacyGasPriceProvider } from '../src/providers/legacy-gas-price-provider';
+import { OnChainGasPriceProvider } from '../src/providers/on-chain-gas-price-provider';
 import { PortionProvider } from '../src/providers/portion-provider';
 import { OnChainTokenFeeFetcher } from '../src/providers/token-fee-fetcher';
 
@@ -309,15 +305,11 @@ export abstract class BaseCommand extends Command {
         process.env.TENDERLY_USER!,
         process.env.TENDERLY_PROJECT!,
         process.env.TENDERLY_ACCESS_KEY!,
-        process.env.TENDERLY_NODE_API_KEY!,
         v2PoolProvider,
         v3PoolProvider,
         provider,
         portionProvider,
-        { [ChainId.ARBITRUM_ONE]: 1 },
-        5000,
-        100,
-        [ChainId.MAINNET]
+        { [ChainId.ARBITRUM_ONE]: 1 }
       );
 
       const ethEstimateGasSimulator = new EthEstimateGasSimulator(
@@ -363,12 +355,11 @@ export abstract class BaseCommand extends Command {
     quoteGasAdjusted: CurrencyAmount<Currency>,
     estimatedGasUsedQuoteToken: CurrencyAmount<Currency>,
     estimatedGasUsedUSD: CurrencyAmount<Currency>,
-    estimatedGasUsedGasToken: CurrencyAmount<Currency> | undefined,
     methodParameters: MethodParameters | undefined,
     blockNumber: BigNumber,
     estimatedGasUsed: BigNumber,
     gasPriceWei: BigNumber,
-    simulationStatus?: SimulationStatus,
+    simulationStatus?: SimulationStatus
   ) {
     this.logger.info(`Best Route:`);
     this.logger.info(`${routeAmountsToString(routeAmounts)}`);
@@ -394,13 +385,6 @@ export abstract class BaseCommand extends Command {
         Math.min(estimatedGasUsedUSD.currency.decimals, 6)
       )}`
     );
-    if (estimatedGasUsedGasToken) {
-      this.logger.info(
-        `Gas Used gas token: ${estimatedGasUsedGasToken.toFixed(
-          Math.min(estimatedGasUsedGasToken.currency.decimals, 6)
-        )}`
-      );
-    }
     this.logger.info(`Calldata: ${methodParameters?.calldata}`);
     this.logger.info(`Value: ${methodParameters?.value}`);
     this.logger.info({

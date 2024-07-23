@@ -4,7 +4,7 @@ import Timeout from 'await-timeout';
 import { gql, GraphQLClient } from 'graphql-request';
 import _ from 'lodash';
 
-import { log, metric } from '../../util';
+import { log } from '../../util';
 import { ProviderConfig } from '../provider';
 import { V2SubgraphPool } from '../v2/subgraph-provider';
 
@@ -36,7 +36,6 @@ type RawV3SubgraphPool = {
   };
   totalValueLockedUSD: string;
   totalValueLockedETH: string;
-  totalValueLockedUSDUntracked: string;
 };
 
 export const printV3SubgraphPool = (s: V3SubgraphPool) =>
@@ -50,12 +49,8 @@ const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
     'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
   [ChainId.OPTIMISM]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/optimism-post-regenesis',
-  // todo: add once subgraph is live
-  [ChainId.OPTIMISM_SEPOLIA]: '',
   [ChainId.ARBITRUM_ONE]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/arbitrum-minimal',
-  // todo: add once subgraph is live
-  [ChainId.ARBITRUM_SEPOLIA]: '',
   [ChainId.POLYGON]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-polygon',
   [ChainId.CELO]:
@@ -68,7 +63,6 @@ const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
     'https://api.thegraph.com/subgraphs/name/lynnshaoyu/uniswap-v3-avax',
   [ChainId.BASE]:
     'https://api.studio.thegraph.com/query/48211/uniswap-v3-base/version/latest',
-  [ChainId.BLAST]: 'https://gateway-arbitrum.network.thegraph.com/api/0ae45f0bf40ae2e73119b44ccd755967/subgraphs/id/2LHovKznvo8YmKC9ZprPjsYAZDCc4K5q4AYz8s3cnQn1',
   [ChainId.HOLESKY]: 'https://api.goldsky.com/api/public/project_cly6zqxwr6p4o011ddhk045by/subgraphs/bulbaswap-subgraph/v3-1.0.0/gn',
 };
 
@@ -95,12 +89,9 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
     private chainId: ChainId,
     private retries = 2,
     private timeout = 30000,
-    private rollback = true,
-    private trackedEthThreshold = 0.01,
-    private untrackedUsdThreshold = Number.MAX_VALUE,
-    private subgraphUrlOverride?: string
+    private rollback = true
   ) {
-    const subgraphUrl = this.subgraphUrlOverride ?? SUBGRAPH_URL_BY_CHAIN[this.chainId];
+    const subgraphUrl = SUBGRAPH_URL_BY_CHAIN[this.chainId];
     if (!subgraphUrl) {
       throw new Error(`No subgraph url for chain id: ${this.chainId}`);
     }
@@ -112,7 +103,6 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
     _tokenOut?: Token,
     providerConfig?: ProviderConfig
   ): Promise<V3SubgraphPool[]> {
-    const beforeAll = Date.now();
     let blockNumber = providerConfig?.blockNumber
       ? await providerConfig.blockNumber
       : undefined;
@@ -137,7 +127,6 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
           liquidity
           totalValueLockedUSD
           totalValueLockedETH
-          totalValueLockedUSDUntracked
         }
       }
     `;
@@ -145,13 +134,12 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
     let pools: RawV3SubgraphPool[] = [];
 
     log.info(
-      `Getting V3 pools from the subgraph with page size ${PAGE_SIZE}${providerConfig?.blockNumber
-        ? ` as of block ${providerConfig?.blockNumber}`
-        : ''
+      `Getting V3 pools from the subgraph with page size ${PAGE_SIZE}${
+        providerConfig?.blockNumber
+          ? ` as of block ${providerConfig?.blockNumber}`
+          : ''
       }.`
     );
-
-    let retries = 0;
 
     await retry(
       async () => {
@@ -162,12 +150,7 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
           let pools: RawV3SubgraphPool[] = [];
           let poolsPage: RawV3SubgraphPool[] = [];
 
-          // metrics variables
-          let totalPages = 0;
-
           do {
-            totalPages += 1;
-
             const poolsResult = await this.client.request<{
               pools: RawV3SubgraphPool[];
             }>(query, {
@@ -180,16 +163,12 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
             pools = pools.concat(poolsPage);
 
             lastId = pools[pools.length - 1]!.id;
-            metric.putMetric(`V3SubgraphProvider.chain_${this.chainId}.getPools.paginate.pageSize`, poolsPage.length);
-
           } while (poolsPage.length > 0);
-
-          metric.putMetric(`V3SubgraphProvider.chain_${this.chainId}.getPools.paginate`, totalPages);
-          metric.putMetric(`V3SubgraphProvider.chain_${this.chainId}.getPools.pools.length`, pools.length);
 
           return pools;
         };
 
+        /* eslint-disable no-useless-catch */
         try {
           const getPoolsPromise = getPools();
           const timerPromise = timeout.set(this.timeout).then(() => {
@@ -200,28 +179,25 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
           pools = await Promise.race([getPoolsPromise, timerPromise]);
           return;
         } catch (err) {
-          log.error({ err }, 'Error fetching V3 Subgraph Pools.');
           throw err;
         } finally {
           timeout.clear();
         }
+        /* eslint-enable no-useless-catch */
       },
       {
         retries: this.retries,
         onRetry: (err, retry) => {
-          retries += 1;
           if (
             this.rollback &&
             blockNumber &&
             _.includes(err.message, 'indexed up to')
           ) {
-            metric.putMetric(`V3SubgraphProvider.chain_${this.chainId}.getPools.indexError`, 1);
             blockNumber = blockNumber - 10;
             log.info(
               `Detected subgraph indexing error. Rolled back block number to: ${blockNumber}`
             );
           }
-          metric.putMetric(`V3SubgraphProvider.chain_${this.chainId}.getPools.timeout`, 1);
           pools = [];
           log.info(
             { err },
@@ -231,52 +207,28 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
       }
     );
 
-    metric.putMetric(`V3SubgraphProvider.chain_${this.chainId}.getPools.retries`, retries);
-
-    const untrackedPools = pools.filter(pool =>
-      parseInt(pool.liquidity) > 0 ||
-      parseFloat(pool.totalValueLockedETH) > this.trackedEthThreshold ||
-      parseFloat(pool.totalValueLockedUSDUntracked) > this.untrackedUsdThreshold
-    );
-    metric.putMetric(`V3SubgraphProvider.chain_${this.chainId}.getPools.untracked.length`, untrackedPools.length);
-    metric.putMetric(
-      `V3SubgraphProvider.chain_${this.chainId}.getPools.untracked.percent`,
-      (untrackedPools.length / pools.length) * 100
-    );
-
-    const beforeFilter = Date.now();
     const poolsSanitized = pools
       .filter(
         (pool) =>
           parseInt(pool.liquidity) > 0 ||
-          parseFloat(pool.totalValueLockedETH) > this.trackedEthThreshold
+          parseFloat(pool.totalValueLockedETH) > 0.01
       )
       .map((pool) => {
-        const { totalValueLockedETH, totalValueLockedUSD } = pool;
+        const { totalValueLockedETH, totalValueLockedUSD, ...rest } = pool;
 
         return {
+          ...rest,
           id: pool.id.toLowerCase(),
-          feeTier: pool.feeTier,
           token0: {
             id: pool.token0.id.toLowerCase(),
           },
           token1: {
             id: pool.token1.id.toLowerCase(),
           },
-          liquidity: pool.liquidity,
           tvlETH: parseFloat(totalValueLockedETH),
           tvlUSD: parseFloat(totalValueLockedUSD),
         };
       });
-
-    metric.putMetric(`V3SubgraphProvider.chain_${this.chainId}.getPools.filter.latency`, Date.now() - beforeFilter);
-    metric.putMetric(`V3SubgraphProvider.chain_${this.chainId}.getPools.filter.length`, poolsSanitized.length);
-    metric.putMetric(
-      `V3SubgraphProvider.chain_${this.chainId}.getPools.filter.percent`,
-      (poolsSanitized.length / pools.length) * 100
-    );
-    metric.putMetric(`V3SubgraphProvider.chain_${this.chainId}.getPools`, 1);
-    metric.putMetric(`V3SubgraphProvider.chain_${this.chainId}.getPools.latency`, Date.now() - beforeAll);
 
     log.info(
       `Got ${pools.length} V3 pools from the subgraph. ${poolsSanitized.length} after filtering`

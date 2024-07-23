@@ -1,6 +1,6 @@
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { Trade } from '@uniswap/router-sdk';
-import { ChainId, Percent, TradeType } from '@uniswap/sdk-core';
+import { Trade } from '@bulbaswap/router-sdk';
+import { ChainId, Percent, TradeType } from '@bulbaswap/sdk-core';
 import { BigNumber } from 'ethers';
 import sinon from 'sinon';
 import {
@@ -182,35 +182,6 @@ describe('Fallback Tenderly simulator', () => {
     );
     expect(ethEstimateGasSimulator.ethEstimateGas.called).toBeFalsy();
     expect(tenderlySimulator.simulateTransaction.called).toBeTruthy();
-    expect(swapRouteWithGasEstimate.simulationStatus).toEqual(
-      SimulationStatus.Succeeded
-    );
-  });
-  test('simuates through eth_estimateGas always when input is ETH', async () => {
-    tokenContract = {
-      balanceOf: async () => {
-        return BigNumber.from(0);
-      },
-      allowance: async () => {
-        return BigNumber.from(0);
-      },
-    } as unknown as Erc20;
-    const ethInputAmount =  CurrencyAmount.fromRawAmount(nativeOnChain(1), 300)
-    const swapRouteWithGasEstimate = await simulator.simulate(
-      fromAddress,
-      swapOptions,
-      {
-        ...swaproute,
-        trade: {
-          inputAmount: ethInputAmount,
-          tradeType: 0
-        } as Trade<any, any, any>,
-      },
-      CurrencyAmount.fromRawAmount(nativeOnChain(1), 300),
-      quote
-    );
-    expect(ethEstimateGasSimulator.ethEstimateGas.called).toBeTruthy();
-    expect(tenderlySimulator.simulateTransaction.called).toBeFalsy();
     expect(swapRouteWithGasEstimate.simulationStatus).toEqual(
       SimulationStatus.Succeeded
     );

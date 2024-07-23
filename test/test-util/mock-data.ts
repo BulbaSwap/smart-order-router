@@ -1,15 +1,14 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId, Currency, Ether, Token } from '@uniswap/sdk-core';
+import { ChainId, Currency, Ether, Token } from '@bulbaswap/sdk-core';
 import { TokenList } from '@uniswap/token-lists';
-import { Pair } from '@uniswap/v2-sdk';
-import { encodeSqrtRatioX96, FeeAmount, Pool } from '@uniswap/v3-sdk';
+import { Pair } from '@bulbaswap/v2-sdk';
+import { encodeSqrtRatioX96, FeeAmount, Pool } from '@bulbaswap/v3-sdk';
 import _ from 'lodash';
 import {
   AlphaRouterConfig,
   CurrencyAmount,
   DAI_MAINNET as DAI,
   TokenAccessor,
-  UNI_MAINNET,
   USDC_MAINNET as USDC,
   USDT_MAINNET as USDT,
   V2SubgraphPool,
@@ -163,14 +162,6 @@ export const DAI_USDT_MEDIUM = new Pool(
   10,
   0
 );
-export const DAI_WETH_MEDIUM = new Pool(
-  DAI,
-  WRAPPED_NATIVE_CURRENCY[1]!,
-  FeeAmount.MEDIUM,
-  encodeSqrtRatioX96(1, 1),
-  10,
-  0
-);
 export const WBTC_USDT_MEDIUM = new Pool(
   USDT,
   WBTC,
@@ -187,24 +178,11 @@ export const WBTC_WETH_MEDIUM = new Pool(
   500,
   0
 );
-export const UNI_WETH_MEDIUM = new Pool(
-  WRAPPED_NATIVE_CURRENCY[1]!,
-  UNI_MAINNET,
-  FeeAmount.MEDIUM,
-  encodeSqrtRatioX96(1, 1),
-  500,
-  0
-);
 
 // Mock V2 Pools
 export const DAI_USDT = new Pair(
   CurrencyAmount.fromRawAmount(DAI, 10000000000),
   CurrencyAmount.fromRawAmount(USDT, 10000000000)
-);
-
-export const DAI_WETH = new Pair(
-  CurrencyAmount.fromRawAmount(DAI, 10000000000),
-  CurrencyAmount.fromRawAmount(WRAPPED_NATIVE_CURRENCY[1]!, 10000000000)
 );
 
 export const USDC_WETH = new Pair(

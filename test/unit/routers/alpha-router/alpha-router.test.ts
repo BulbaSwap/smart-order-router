@@ -1,9 +1,9 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { BaseProvider } from '@ethersproject/providers';
-import { Protocol, SwapRouter } from '@uniswap/router-sdk';
-import { Fraction, Percent, TradeType } from '@uniswap/sdk-core';
-import { Pair } from '@uniswap/v2-sdk';
-import { encodeSqrtRatioX96, Pool, Position } from '@uniswap/v3-sdk';
+import { Protocol, SwapRouter } from '@bulbaswap/router-sdk';
+import { Fraction, Percent, TradeType } from '@bulbaswap/sdk-core';
+import { Pair } from '@bulbaswap/v2-sdk';
+import { encodeSqrtRatioX96, Pool, Position } from '@bulbaswap/v3-sdk';
 import JSBI from 'jsbi';
 import _ from 'lodash';
 import sinon from 'sinon';
@@ -515,7 +515,6 @@ describe('alpha router', () => {
           gasPriceWei: mockGasPriceWeiBN,
           poolProvider: sinon.match.any,
           token: WRAPPED_NATIVE_CURRENCY[1],
-          l2GasDataProvider: sinon.match.any,
           providerConfig: sinon.match.any,
         })
       ).toBeTruthy();
@@ -918,7 +917,6 @@ describe('alpha router', () => {
         mockV2GasModelFactory.buildGasModel.calledWith({
           chainId: 1,
           gasPriceWei: mockGasPriceWeiBN,
-          l2GasDataProvider: sinon.match.any,
           poolProvider: sinon.match.any,
           token: WRAPPED_NATIVE_CURRENCY[1],
           providerConfig: sinon.match.any,
@@ -1105,7 +1103,6 @@ describe('alpha router', () => {
         mockV2GasModelFactory.buildGasModel.calledWith({
           chainId: 1,
           gasPriceWei: mockGasPriceWeiBN,
-          l2GasDataProvider: sinon.match.any,
           poolProvider: sinon.match.any,
           token: WRAPPED_NATIVE_CURRENCY[1],
           providerConfig: sinon.match.any,
@@ -1516,7 +1513,6 @@ describe('alpha router', () => {
         mockV2GasModelFactory.buildGasModel.calledWith({
           chainId: 1,
           gasPriceWei: mockGasPriceWeiBN,
-          l2GasDataProvider: sinon.match.any,
           poolProvider: sinon.match.any,
           token: WRAPPED_NATIVE_CURRENCY[1],
           providerConfig: sinon.match.any,
@@ -1890,7 +1886,6 @@ describe('alpha router', () => {
         mockV2GasModelFactory.buildGasModel.calledWith({
           chainId: 1,
           gasPriceWei: mockGasPriceWeiBN,
-          l2GasDataProvider: sinon.match.any,
           poolProvider: sinon.match.any,
           token: USDC,
           providerConfig: sinon.match.any,
@@ -2054,7 +2049,6 @@ describe('alpha router', () => {
         mockV2GasModelFactory.buildGasModel.calledWith({
           chainId: 1,
           gasPriceWei: mockGasPriceWeiBN,
-          l2GasDataProvider: sinon.match.any,
           poolProvider: sinon.match.any,
           token: USDC,
           providerConfig: sinon.match.any,
@@ -2135,7 +2129,6 @@ describe('alpha router', () => {
         mockV2GasModelFactory.buildGasModel.calledWith({
           chainId: 1,
           gasPriceWei: mockGasPriceWeiBN,
-          l2GasDataProvider: sinon.match.any,
           poolProvider: sinon.match.any,
           token: USDC,
           providerConfig: sinon.match.any,

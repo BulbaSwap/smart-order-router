@@ -31,7 +31,6 @@ import {
   DAI_POLYGON_MUMBAI,
   ETH_BNB,
   OP_OPTIMISM,
-  USDB_BLAST,
   USDC_ARBITRUM,
   USDC_ARBITRUM_GOERLI,
   USDC_AVAX,
@@ -44,7 +43,7 @@ import {
   USDC_OPTIMISM,
   USDC_OPTIMISM_GOERLI,
   USDC_POLYGON,
-  USDC_SEPOLIA, USDC_ZKSYNC, USDCE_ZKSYNC,
+  USDC_SEPOLIA,
   USDT_ARBITRUM,
   USDT_BNB,
   USDT_GOERLI,
@@ -78,14 +77,14 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     DAI_MAINNET,
     USDC_MAINNET,
     USDT_MAINNET,
-    WBTC_MAINNET,
+    WBTC_MAINNET
   ],
   [ChainId.GOERLI]: [
     WRAPPED_NATIVE_CURRENCY[ChainId.GOERLI]!,
     USDT_GOERLI,
     USDC_GOERLI,
     WBTC_GOERLI,
-    DAI_GOERLI,
+    DAI_GOERLI
   ],
   [ChainId.SEPOLIA]: [WRAPPED_NATIVE_CURRENCY[ChainId.SEPOLIA]!, USDC_SEPOLIA],
   [ChainId.OPTIMISM]: [
@@ -94,11 +93,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     DAI_OPTIMISM,
     USDT_OPTIMISM,
     WBTC_OPTIMISM,
-    OP_OPTIMISM,
-  ],
-  // todo: once subgraph is created
-  [ChainId.OPTIMISM_SEPOLIA]: [
-    //   WRAPPED_NATIVE_CURRENCY[ChainId.OPTIMISM_SEPOLIA]!,
+    OP_OPTIMISM
   ],
   [ChainId.ARBITRUM_ONE]: [
     WRAPPED_NATIVE_CURRENCY[ChainId.ARBITRUM_ONE]!,
@@ -106,40 +101,37 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     DAI_ARBITRUM,
     USDC_ARBITRUM,
     USDT_ARBITRUM,
-    ARB_ARBITRUM,
+    ARB_ARBITRUM
   ],
   [ChainId.ARBITRUM_GOERLI]: [
     WRAPPED_NATIVE_CURRENCY[ChainId.ARBITRUM_GOERLI]!,
-    USDC_ARBITRUM_GOERLI,
-  ],
-  [ChainId.ARBITRUM_SEPOLIA]: [
-    // WRAPPED_NATIVE_CURRENCY[ChainId.ARBITRUM_SEPOLIA]!,
+    USDC_ARBITRUM_GOERLI
   ],
   [ChainId.OPTIMISM_GOERLI]: [
     WRAPPED_NATIVE_CURRENCY[ChainId.OPTIMISM_GOERLI]!,
     USDC_OPTIMISM_GOERLI,
     DAI_OPTIMISM_GOERLI,
     USDT_OPTIMISM_GOERLI,
-    WBTC_OPTIMISM_GOERLI,
+    WBTC_OPTIMISM_GOERLI
   ],
   [ChainId.POLYGON]: [USDC_POLYGON, WETH_POLYGON, WMATIC_POLYGON],
   [ChainId.POLYGON_MUMBAI]: [
     DAI_POLYGON_MUMBAI,
     WRAPPED_NATIVE_CURRENCY[ChainId.POLYGON_MUMBAI]!,
-    WMATIC_POLYGON_MUMBAI,
+    WMATIC_POLYGON_MUMBAI
   ],
   [ChainId.CELO]: [CELO, CUSD_CELO, CEUR_CELO, DAI_CELO],
   [ChainId.CELO_ALFAJORES]: [
     CELO_ALFAJORES,
     CUSD_CELO_ALFAJORES,
     CEUR_CELO_ALFAJORES,
-    DAI_CELO_ALFAJORES,
+    DAI_CELO_ALFAJORES
   ],
   [ChainId.GNOSIS]: [
     WRAPPED_NATIVE_CURRENCY[ChainId.GNOSIS],
     WBTC_GNOSIS,
     WXDAI_GNOSIS,
-    USDC_ETHEREUM_GNOSIS,
+    USDC_ETHEREUM_GNOSIS
   ],
   [ChainId.BNB]: [
     WRAPPED_NATIVE_CURRENCY[ChainId.BNB],
@@ -148,27 +140,29 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     USDC_BNB,
     USDT_BNB,
     BTC_BNB,
-    ETH_BNB,
+    ETH_BNB
   ],
   [ChainId.AVALANCHE]: [
     WRAPPED_NATIVE_CURRENCY[ChainId.AVALANCHE],
     USDC_AVAX,
-    DAI_AVAX,
+    DAI_AVAX
   ],
   [ChainId.MOONBEAM]: [
     WRAPPED_NATIVE_CURRENCY[ChainId.MOONBEAM],
     DAI_MOONBEAM,
     USDC_MOONBEAM,
-    WBTC_MOONBEAM,
+    WBTC_MOONBEAM
   ],
   [ChainId.BASE_GOERLI]: [WRAPPED_NATIVE_CURRENCY[ChainId.BASE_GOERLI]],
   [ChainId.BASE]: [WRAPPED_NATIVE_CURRENCY[ChainId.BASE], USDC_BASE],
-  [ChainId.ZORA]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZORA]!],
-  [ChainId.ZORA_SEPOLIA]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZORA_SEPOLIA]!],
-  [ChainId.ROOTSTOCK]: [WRAPPED_NATIVE_CURRENCY[ChainId.ROOTSTOCK]!],
-  [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!, USDB_BLAST],
-  [ChainId.ZKSYNC]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZKSYNC]!, USDCE_ZKSYNC, USDC_ZKSYNC],
   [ChainId.HOLESKY]: [WRAPPED_NATIVE_CURRENCY[ChainId.HOLESKY]!, USDT_HOLESKY],
+  [ChainId.OPTIMISM_SEPOLIA]: [],
+  [ChainId.ARBITRUM_SEPOLIA]: [],
+  [ChainId.ZORA]: [],
+  [ChainId.ZORA_SEPOLIA]: [],
+  [ChainId.ROOTSTOCK]: [],
+  [ChainId.BLAST]: [],
+  [ChainId.ZKSYNC]: []
 };
 
 /**
@@ -186,7 +180,7 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
   constructor(
     private chainId: ChainId,
     private poolProvider: IV3PoolProvider
-  ) { }
+  ) {}
 
   public async getPools(
     tokenIn?: Token,
@@ -222,7 +216,7 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
           [tokenA, tokenB, FeeAmount.LOWEST],
           [tokenA, tokenB, FeeAmount.LOW],
           [tokenA, tokenB, FeeAmount.MEDIUM],
-          [tokenA, tokenB, FeeAmount.HIGH],
+          [tokenA, tokenB, FeeAmount.HIGH]
         ];
       })
       .value();
@@ -255,14 +249,14 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
           feeTier: unparseFeeAmount(fee),
           liquidity: liquidity.toString(),
           token0: {
-            id: token0.address,
+            id: token0.address
           },
           token1: {
-            id: token1.address,
+            id: token1.address
           },
           // As a very rough proxy we just use liquidity for TVL.
           tvlETH: liquidityNumber,
-          tvlUSD: liquidityNumber,
+          tvlUSD: liquidityNumber
         };
       })
       .compact()
