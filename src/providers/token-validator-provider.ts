@@ -1,4 +1,4 @@
-import { ChainId, Token } from '@ququzone/sdk-core';
+import { ChainId, Token } from '@bulbaswap/sdk-core';
 import _ from 'lodash';
 
 import { ITokenValidator__factory } from '../types/other/factories/ITokenValidator__factory';

@@ -1,5 +1,5 @@
+import { ChainId, Token } from '@bulbaswap/sdk-core';
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId, Token } from '@ququzone/sdk-core';
 
 import { log, metric, MetricLoggerUnit } from '../util';
 

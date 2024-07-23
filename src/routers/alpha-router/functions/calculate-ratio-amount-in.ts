@@ -1,4 +1,4 @@
-import { Fraction } from '@ququzone/sdk-core';
+import { Fraction } from '@bulbaswap/sdk-core';
 
 import { CurrencyAmount } from '../../../util/amounts';
 

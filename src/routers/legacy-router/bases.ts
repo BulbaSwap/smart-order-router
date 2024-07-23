@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ChainId, Token } from '@ququzone/sdk-core';
+import { ChainId, Token } from '@bulbaswap/sdk-core';
 
 import {
   BTC_BNB,

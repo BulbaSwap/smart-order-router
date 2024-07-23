@@ -1,6 +1,6 @@
-import { Token } from '@ququzone/sdk-core';
-import { Pair } from '@ququzone/v2-sdk';
-import { Pool } from '@ququzone/v3-sdk';
+import { Token } from '@bulbaswap/sdk-core';
+import { Pair } from '@bulbaswap/v2-sdk';
+import { Pool } from '@bulbaswap/v3-sdk';
 
 import { log } from '../../../util/log';
 import { poolToString, routeToString } from '../../../util/routes';

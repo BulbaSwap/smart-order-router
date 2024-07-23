@@ -1,6 +1,6 @@
-import { Protocol } from '@ququzone/router-sdk';
-import { ChainId, Token, TradeType } from '@ququzone/sdk-core';
-import { FeeAmount } from '@ququzone/v3-sdk';
+import { Protocol } from '@bulbaswap/router-sdk';
+import { ChainId, Token, TradeType } from '@bulbaswap/sdk-core';
+import { FeeAmount } from '@bulbaswap/v3-sdk';
 import _ from 'lodash';
 
 import {

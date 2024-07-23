@@ -1,4 +1,4 @@
-import { ChainId, Token } from '@ququzone/sdk-core';
+import { ChainId, Token } from '@bulbaswap/sdk-core';
 import retry from 'async-retry';
 import Timeout from 'await-timeout';
 import { gql, GraphQLClient } from 'graphql-request';

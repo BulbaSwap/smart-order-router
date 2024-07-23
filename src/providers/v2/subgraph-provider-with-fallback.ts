@@ -1,4 +1,4 @@
-import { Token } from '@ququzone/sdk-core';
+import { Token } from '@bulbaswap/sdk-core';
 
 import { log } from '../../util';
 import { ProviderConfig } from '../provider';

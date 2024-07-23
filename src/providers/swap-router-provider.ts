@@ -1,5 +1,5 @@
-import { ApprovalTypes } from '@ququzone/router-sdk';
-import { ChainId, Currency, CurrencyAmount } from '@ququzone/sdk-core';
+import { ApprovalTypes } from '@bulbaswap/router-sdk';
+import { ChainId, Currency, CurrencyAmount } from '@bulbaswap/sdk-core';
 
 import { SwapRouter02__factory } from '../types/other/factories/SwapRouter02__factory';
 import { log, SWAP_ROUTER_02_ADDRESSES } from '../util';

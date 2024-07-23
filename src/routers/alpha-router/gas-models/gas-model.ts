@@ -1,11 +1,11 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import {
   ChainId,
   CurrencyAmount as CurrencyAmountRaw,
   Token,
-} from '@ququzone/sdk-core';
-import { Pair } from '@ququzone/v2-sdk';
-import { Pool } from '@ququzone/v3-sdk';
+} from '@bulbaswap/sdk-core';
+import { Pair } from '@bulbaswap/v2-sdk';
+import { Pool } from '@bulbaswap/v3-sdk';
+import { BigNumber } from '@ethersproject/bignumber';
 
 import { ProviderConfig } from '../../../providers/provider';
 import {

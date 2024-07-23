@@ -4,7 +4,7 @@ import {
   Ether,
   NativeCurrency,
   Token
-} from '@ququzone/sdk-core';
+} from '@bulbaswap/sdk-core';
 
 // WIP: Gnosis, Moonbeam
 export const SUPPORTED_CHAINS: ChainId[] = [

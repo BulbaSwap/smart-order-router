@@ -1,6 +1,6 @@
+import { ChainId, Token } from '@bulbaswap/sdk-core';
+import { Pair } from '@bulbaswap/v2-sdk';
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId, Token } from '@ququzone/sdk-core';
-import { Pair } from '@ququzone/v2-sdk';
 import retry, { Options as RetryOptions } from 'async-retry';
 import _ from 'lodash';
 

@@ -1,7 +1,7 @@
-import { Protocol } from '@ququzone/router-sdk';
-import { Percent } from '@ququzone/sdk-core';
-import { Pair } from '@ququzone/v2-sdk';
-import { Pool } from '@ququzone/v3-sdk';
+import { Protocol } from '@bulbaswap/router-sdk';
+import { Percent } from '@bulbaswap/sdk-core';
+import { Pair } from '@bulbaswap/v2-sdk';
+import { Pool } from '@bulbaswap/v3-sdk';
 import _ from 'lodash';
 
 import { RouteWithValidQuote } from '../routers/alpha-router';

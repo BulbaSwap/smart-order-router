@@ -1,9 +1,9 @@
-import { BigNumber } from '@ethersproject/bignumber';
-import { TradeType } from '@ququzone/sdk-core';
+import { TradeType } from '@bulbaswap/sdk-core';
 import {
   InsufficientInputAmountError,
   InsufficientReservesError,
-} from '@ququzone/v2-sdk';
+} from '@bulbaswap/v2-sdk';
+import { BigNumber } from '@ethersproject/bignumber';
 
 import { V2Route } from '../../routers/router';
 import { CurrencyAmount } from '../../util/amounts';

@@ -1,5 +1,6 @@
+import { ChainId, TradeType } from '@bulbaswap/sdk-core';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { ChainId, TradeType } from '@ququzone/sdk-core';
+import { permit2Address } from '@uniswap/permit2-sdk';
 import { BigNumber } from 'ethers/lib/ethers';
 
 import {
@@ -13,7 +14,7 @@ import { Permit2__factory } from '../types/other/factories/Permit2__factory';
 import { CurrencyAmount, log, SWAP_ROUTER_02_ADDRESSES } from '../util';
 
 import { IPortionProvider } from './portion-provider';
-import { permit2Address } from '@uniswap/permit2-sdk';
+
 
 export type SimulationResult = {
   transaction: {

@@ -1,5 +1,5 @@
-import { Protocol } from '@ququzone/router-sdk';
-import { ChainId, Token, TradeType } from '@ququzone/sdk-core';
+import { Protocol } from '@bulbaswap/router-sdk';
+import { ChainId, Token, TradeType } from '@bulbaswap/sdk-core';
 import _ from 'lodash';
 
 import {
