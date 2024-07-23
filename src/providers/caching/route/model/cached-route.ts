@@ -1,6 +1,6 @@
-import { Protocol } from '@ququzone/router-sdk';
-import { Token } from '@ququzone/sdk-core';
-import { Pool } from '@ququzone/v3-sdk';
+import { Protocol } from '@bulbaswap/router-sdk';
+import { Token } from '@bulbaswap/sdk-core';
+import { Pool } from '@bulbaswap/v3-sdk';
 
 import { MixedRoute, V2Route, V3Route } from '../../../../routers';
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ChainId, Token } from '@ququzone/sdk-core';
-import { FeeAmount, Pool } from '@ququzone/v3-sdk';
+import { ChainId, Token } from '@bulbaswap/sdk-core';
+import { FeeAmount, Pool } from '@bulbaswap/v3-sdk';
 import JSBI from 'jsbi';
 import _ from 'lodash';
 

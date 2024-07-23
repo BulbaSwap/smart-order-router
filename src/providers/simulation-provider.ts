@@ -1,5 +1,5 @@
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { ChainId, TradeType } from '@ququzone/sdk-core';
+import { ChainId, TradeType } from '@bulbaswap/sdk-core';
 import { BigNumber } from 'ethers/lib/ethers';
 
 import {

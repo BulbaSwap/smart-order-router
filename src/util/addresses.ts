@@ -3,8 +3,8 @@ import {
   CHAIN_TO_ADDRESSES_MAP,
   SWAP_ROUTER_02_ADDRESSES as SWAP_ROUTER_02_ADDRESSES_HELPER,
   Token,
-} from '@ququzone/sdk-core';
-import { FACTORY_ADDRESS } from '@ququzone/v3-sdk';
+} from '@bulbaswap/sdk-core';
+import { FACTORY_ADDRESS } from '@bulbaswap/v3-sdk';
 
 import { NETWORKS_WITH_SAME_UNISWAP_ADDRESSES } from './chains';
 

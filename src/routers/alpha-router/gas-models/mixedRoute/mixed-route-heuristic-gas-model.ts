@@ -1,8 +1,8 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { partitionMixedRouteByProtocol } from '@ququzone/router-sdk';
-import { ChainId } from '@ququzone/sdk-core';
-import { Pair } from '@ququzone/v2-sdk';
-import { Pool } from '@ququzone/v3-sdk';
+import { partitionMixedRouteByProtocol } from '@bulbaswap/router-sdk';
+import { ChainId } from '@bulbaswap/sdk-core';
+import { Pair } from '@bulbaswap/v2-sdk';
+import { Pool } from '@bulbaswap/v3-sdk';
 import JSBI from 'jsbi';
 import _ from 'lodash';
 

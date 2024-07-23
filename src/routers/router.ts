@@ -4,22 +4,22 @@ import {
   MixedRouteSDK,
   Protocol,
   Trade,
-} from '@ququzone/router-sdk';
+} from '@bulbaswap/router-sdk';
 import {
   Currency,
   Fraction,
   Percent,
   Token,
   TradeType,
-} from '@ququzone/sdk-core';
-import { SwapOptions as UniversalRouterSwapOptions } from '@ququzone/universal-router-sdk';
-import { Route as V2RouteRaw } from '@ququzone/v2-sdk';
+} from '@bulbaswap/sdk-core';
+import { SwapOptions as UniversalRouterSwapOptions } from '@bulbaswap/universal-router-sdk';
+import { Route as V2RouteRaw } from '@bulbaswap/v2-sdk';
 import {
   MethodParameters as SDKMethodParameters,
   Pool,
   Position,
   Route as V3RouteRaw,
-} from '@ququzone/v3-sdk';
+} from '@bulbaswap/v3-sdk';
 
 import { SimulationStatus } from '../providers';
 import { CurrencyAmount } from '../util/amounts';

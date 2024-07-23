@@ -1,5 +1,5 @@
-import { ChainId, Token } from '@ququzone/sdk-core';
-import { FeeAmount, Pool } from '@ququzone/v3-sdk';
+import { ChainId, Token } from '@bulbaswap/sdk-core';
+import { FeeAmount, Pool } from '@bulbaswap/v3-sdk';
 import _ from 'lodash';
 
 import { metric, MetricLoggerUnit } from '../../util';

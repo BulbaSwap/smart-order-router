@@ -4,14 +4,14 @@
  * @export
  * @interface IRouteCachingProvider
  */
-import { Protocol } from '@ququzone/router-sdk';
+import { Protocol } from '@bulbaswap/router-sdk';
 import {
   ChainId,
   Currency,
   CurrencyAmount,
   Token,
   TradeType,
-} from '@ququzone/sdk-core';
+} from '@bulbaswap/sdk-core';
 
 import { CacheMode } from './model';
 import { CachedRoutes } from './model/cached-routes';

@@ -1,8 +1,8 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { Protocol } from '@ququzone/router-sdk';
-import { ChainId, Currency, Token, TradeType } from '@ququzone/sdk-core';
-import { Pair } from '@ququzone/v2-sdk';
-import { Pool } from '@ququzone/v3-sdk';
+import { Protocol } from '@bulbaswap/router-sdk';
+import { ChainId, Currency, Token, TradeType } from '@bulbaswap/sdk-core';
+import { Pair } from '@bulbaswap/v2-sdk';
+import { Pool } from '@bulbaswap/v3-sdk';
 import _ from 'lodash';
 
 import {

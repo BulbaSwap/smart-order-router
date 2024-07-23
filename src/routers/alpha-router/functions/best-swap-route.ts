@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { Protocol } from '@ququzone/router-sdk';
-import { ChainId, TradeType } from '@ququzone/sdk-core';
+import { Protocol } from '@bulbaswap/router-sdk';
+import { ChainId, TradeType } from '@bulbaswap/sdk-core';
 import JSBI from 'jsbi';
 import _ from 'lodash';
 import FixedReverseHeap from 'mnemonist/fixed-reverse-heap';

@@ -1,4 +1,4 @@
-import { ChainId } from '@ququzone/sdk-core';
+import { ChainId } from '@bulbaswap/sdk-core';
 
 import { log } from '../util/log';
 

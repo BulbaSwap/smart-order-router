@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId, Token } from '@ququzone/sdk-core';
-import { computePoolAddress, FeeAmount, Pool } from '@ququzone/v3-sdk';
+import { ChainId, Token } from '@bulbaswap/sdk-core';
+import { computePoolAddress, FeeAmount, Pool } from '@bulbaswap/v3-sdk';
 import retry, { Options as RetryOptions } from 'async-retry';
 import _ from 'lodash';
 

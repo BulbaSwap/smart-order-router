@@ -1,5 +1,5 @@
-import { ChainId, Token } from '@ququzone/sdk-core';
-import { Pair } from '@ququzone/v2-sdk';
+import { ChainId, Token } from '@bulbaswap/sdk-core';
+import { Pair } from '@bulbaswap/v2-sdk';
 import _ from 'lodash';
 
 import { log } from '../../util/log';

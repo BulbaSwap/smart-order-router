@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId, Price } from '@ququzone/sdk-core';
-import { Pool } from '@ququzone/v3-sdk';
+import { ChainId, Price } from '@bulbaswap/sdk-core';
+import { Pool } from '@bulbaswap/v3-sdk';
 import _ from 'lodash';
 
 import { WRAPPED_NATIVE_CURRENCY } from '../../../..';

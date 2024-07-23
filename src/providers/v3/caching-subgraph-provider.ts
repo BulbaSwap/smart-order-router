@@ -1,4 +1,4 @@
-import { ChainId } from '@ququzone/sdk-core';
+import { ChainId } from '@bulbaswap/sdk-core';
 
 import { ICache } from './../cache';
 import { IV3SubgraphProvider, V3SubgraphPool } from './subgraph-provider';

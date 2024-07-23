@@ -2,8 +2,8 @@ import { parseUnits } from '@ethersproject/units';
 import {
   Currency,
   CurrencyAmount as CurrencyAmountRaw,
-} from '@ququzone/sdk-core';
-import { FeeAmount } from '@ququzone/v3-sdk';
+} from '@bulbaswap/sdk-core';
+import { FeeAmount } from '@bulbaswap/v3-sdk';
 import JSBI from 'jsbi';
 
 export class CurrencyAmount extends CurrencyAmountRaw<Currency> { }
