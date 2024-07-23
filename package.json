@@ -1,6 +1,6 @@
 {
   "name": "@bulbaswap/smart-order-router",
-  "version": "1.0.2",
+  "version": "1.0.8",
   "description": "Bulbaswap Smart Order Router",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -31,11 +31,11 @@
     "node": ">=10"
   },
   "dependencies": {
-    "@bulbaswap/router-sdk": "^1.0.2",
-    "@bulbaswap/sdk-core": "^1.0.7",
-    "@bulbaswap/universal-router-sdk": "^1.0.2",
-    "@bulbaswap/v2-sdk": "^1.0.3",
-    "@bulbaswap/v3-sdk": "^1.0.3",
+    "@bulbaswap/router-sdk": "^1.0.8",
+    "@bulbaswap/sdk-core": "^1.0.8",
+    "@bulbaswap/universal-router-sdk": "^1.0.8",
+    "@bulbaswap/v2-sdk": "^1.0.8",
+    "@bulbaswap/v3-sdk": "^1.0.8",
     "@eth-optimism/sdk": "^3.2.2",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/bignumber": "^5.7.0",
