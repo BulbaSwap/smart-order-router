@@ -162,9 +162,9 @@ export class V2SubgraphProvider implements IV2SubgraphProvider {
                 onRetry: (err, retry) => {
                   pools = [];
                   retries += 1;
-                  log.info(
-                    { err },
-                    `Failed request for page of pools from subgraph. Retry attempt: ${retry}`
+                  log.error(
+                    { err, lastId },
+                    `Failed request for page of pools from subgraph. Retry attempt: ${retry}. LastId: ${lastId}`
                   );
                 },
               }
@@ -178,7 +178,6 @@ export class V2SubgraphProvider implements IV2SubgraphProvider {
           return pairs;
         };
 
-        /* eslint-disable no-useless-catch */
         try {
           const getPoolsPromise = getPools();
           const timerPromise = timeout.set(this.timeout).then(() => {
@@ -189,11 +188,11 @@ export class V2SubgraphProvider implements IV2SubgraphProvider {
           pools = await Promise.race([getPoolsPromise, timerPromise]);
           return;
         } catch (err) {
+          log.error({ err }, 'Error fetching V2 Subgraph Pools.');
           throw err;
         } finally {
           timeout.clear();
         }
-        /* eslint-enable no-useless-catch */
       },
       {
         retries: this.retries,
