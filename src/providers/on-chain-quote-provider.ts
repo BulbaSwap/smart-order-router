@@ -1,5 +1,3 @@
-import { BigNumber } from '@ethersproject/bignumber';
-import { BaseProvider } from '@ethersproject/providers';
 import {
   encodeMixedRouteToPath,
   MixedRouteSDK,
@@ -7,6 +5,8 @@ import {
 } from '@bulbaswap/router-sdk';
 import { ChainId } from '@bulbaswap/sdk-core';
 import { encodeRouteToPath } from '@bulbaswap/v3-sdk';
+import { BigNumber } from '@ethersproject/bignumber';
+import { BaseProvider } from '@ethersproject/providers';
 import retry, { Options as RetryOptions } from 'async-retry';
 import _ from 'lodash';
 import stats from 'stats-lite';

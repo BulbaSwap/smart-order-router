@@ -1,7 +1,7 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import { Protocol } from '@bulbaswap/router-sdk';
 import { Token, TradeType } from '@bulbaswap/sdk-core';
 import { Pool } from '@bulbaswap/v3-sdk';
+import { BigNumber } from '@ethersproject/bignumber';
 import _ from 'lodash';
 
 import { IV2PoolProvider } from '../../../providers/v2/pool-provider';

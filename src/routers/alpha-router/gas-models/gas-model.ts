@@ -1,4 +1,3 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import {
   ChainId,
   CurrencyAmount as CurrencyAmountRaw,
@@ -6,6 +5,7 @@ import {
 } from '@bulbaswap/sdk-core';
 import { Pair } from '@bulbaswap/v2-sdk';
 import { Pool } from '@bulbaswap/v3-sdk';
+import { BigNumber } from '@ethersproject/bignumber';
 
 import { ProviderConfig } from '../../../providers/provider';
 import {

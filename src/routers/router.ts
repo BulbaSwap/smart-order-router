@@ -1,4 +1,3 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import {
   CondensedAddLiquidityOptions,
   MixedRouteSDK,
@@ -15,11 +14,12 @@ import {
 import { SwapOptions as UniversalRouterSwapOptions } from '@bulbaswap/universal-router-sdk';
 import { Route as V2RouteRaw } from '@bulbaswap/v2-sdk';
 import {
-  MethodParameters as SDKMethodParameters,
   Pool,
   Position,
+  MethodParameters as SDKMethodParameters,
   Route as V3RouteRaw,
 } from '@bulbaswap/v3-sdk';
+import { BigNumber } from '@ethersproject/bignumber';
 
 import { SimulationStatus } from '../providers';
 import { CurrencyAmount } from '../util/amounts';

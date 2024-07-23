@@ -1,6 +1,6 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import { ZERO } from '@bulbaswap/router-sdk';
 import { Fraction, TradeType } from '@bulbaswap/sdk-core';
+import { BigNumber } from '@ethersproject/bignumber';
 
 import {
   RouteWithValidQuote,

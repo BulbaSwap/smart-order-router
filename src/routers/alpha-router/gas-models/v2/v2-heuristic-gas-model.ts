@@ -1,6 +1,7 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import { ChainId, Token } from '@bulbaswap/sdk-core';
 import { Pair } from '@bulbaswap/v2-sdk';
+import { BigNumber } from '@ethersproject/bignumber';
+import { BaseProvider } from '@ethersproject/providers';
 import _ from 'lodash';
 
 import { ProviderConfig } from '../../../../providers/provider';
@@ -20,7 +21,6 @@ import {
   IV2GasModelFactory,
   usdGasTokensByChain,
 } from '../gas-model';
-import { BaseProvider } from '@ethersproject/providers';
 
 // Constant cost for doing any swap regardless of pools.
 export const BASE_SWAP_COST = BigNumber.from(135000); // 115000, bumped up by 20_000 @eric 7/8/2022

@@ -1,6 +1,6 @@
+import { ChainId } from '@bulbaswap/sdk-core';
 import { BigNumber } from '@ethersproject/bignumber';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { ChainId } from '@bulbaswap/sdk-core';
 
 import {
   GasModelProviderConfig,

@@ -6,8 +6,8 @@ import {
 } from '@bulbaswap/router-sdk';
 import { ChainId, Currency, TradeType } from '@bulbaswap/sdk-core';
 import {
-  SwapRouter as UniversalRouter,
   UNIVERSAL_ROUTER_ADDRESS,
+  SwapRouter as UniversalRouter,
 } from '@bulbaswap/universal-router-sdk';
 import { Route as V2RouteRaw } from '@bulbaswap/v2-sdk';
 import { Route as V3RouteRaw } from '@bulbaswap/v3-sdk';
@@ -18,9 +18,9 @@ import {
   MethodParameters,
   MixedRouteWithValidQuote,
   RouteWithValidQuote,
+  SWAP_ROUTER_02_ADDRESSES,
   SwapOptions,
   SwapType,
-  SWAP_ROUTER_02_ADDRESSES,
   V2RouteWithValidQuote,
   V3RouteWithValidQuote,
 } from '..';

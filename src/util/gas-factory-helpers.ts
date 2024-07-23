@@ -1,8 +1,11 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import { Protocol } from '@bulbaswap/router-sdk';
 import { ChainId, Percent, Token, TradeType } from '@bulbaswap/sdk-core';
+import { Pair } from '@bulbaswap/v2-sdk';
 import { FeeAmount, Pool } from '@bulbaswap/v3-sdk';
-import brotli from 'brotli';
+import { estimateL1Gas, estimateL1GasCost } from '@eth-optimism/sdk';
+import { BigNumber } from '@ethersproject/bignumber';
+import { BaseProvider, TransactionRequest } from '@ethersproject/providers';
+import brotliPromise from 'brotli-wasm';
 import JSBI from 'jsbi';
 import _ from 'lodash';
 
@@ -28,11 +31,10 @@ import {
 } from '../routers';
 import { CurrencyAmount, log, WRAPPED_NATIVE_CURRENCY } from '../util';
 
-import { Pair } from '@bulbaswap/v2-sdk';
+
 import { opStackChains } from './l2FeeChains';
 import { buildSwapMethodParameters, buildTrade } from './methodParameters';
-import { estimateL1Gas, estimateL1GasCost } from '@eth-optimism/sdk';
-import { BaseProvider, TransactionRequest } from '@ethersproject/providers';
+
 
 export async function getV2NativePool(
   token: Token,
@@ -190,15 +192,16 @@ export function getGasCostInNativeCurrency(
   return costNativeCurrency;
 }
 
-export function getArbitrumBytes(data: string): BigNumber {
+export async function getArbitrumBytes(data: string): Promise<BigNumber> {
   if (data == '') return BigNumber.from(0);
+  const brotli = await brotliPromise;
   const compressed = brotli.compress(
     Buffer.from(data.replace('0x', ''), 'hex'),
-    {
-      mode: 0,
-      quality: 1,
-      lgwin: 22,
-    }
+    // {
+    //   mode: 0,
+    //   quality: 1,
+    //   lgwin: 22,
+    // }
   );
   // TODO: This is a rough estimate of the compressed size
   // Brotli 0 should be used, but this brotli library doesn't support it
@@ -208,14 +211,14 @@ export function getArbitrumBytes(data: string): BigNumber {
   return BigNumber.from(compressed.length).mul(120).div(100);
 }
 
-export function calculateArbitrumToL1FeeFromCalldata(
+export async function calculateArbitrumToL1FeeFromCalldata(
   calldata: string,
   gasData: ArbitrumGasData,
   chainId: ChainId
-): [BigNumber, BigNumber, BigNumber] {
+): Promise<[BigNumber, BigNumber, BigNumber]> {
   const { perL2TxFee, perL1CalldataFee, perArbGasTotal } = gasData;
   // calculates gas amounts based on bytes of calldata, use 0 as overhead.
-  const l1GasUsed = getL2ToL1GasUsed(calldata, chainId);
+  const l1GasUsed = await getL2ToL1GasUsed(calldata, chainId);
   // multiply by the fee per calldata and add the flat l2 fee
   const l1Fee = l1GasUsed.mul(perL1CalldataFee).add(perL2TxFee);
   const gasUsedL1OnL2 = l1Fee.div(perArbGasTotal);
@@ -236,15 +239,15 @@ export async function calculateOptimismToL1FeeFromCalldata(
   return [l1GasUsed, l1GasCost];
 }
 
-export function getL2ToL1GasUsed(
+export async function getL2ToL1GasUsed(
   data: string,
   chainId: ChainId
-): BigNumber {
+): Promise<BigNumber> {
   switch (chainId) {
     case ChainId.ARBITRUM_ONE:
     case ChainId.ARBITRUM_GOERLI: {
       // calculates bytes of compressed calldata
-      const l1ByteUsed = getArbitrumBytes(data);
+      const l1ByteUsed = await getArbitrumBytes(data);
       return l1ByteUsed.mul(16);
     }
     default:
@@ -547,7 +550,7 @@ export const calculateL1GasFeesHelper = async (
     chainId == ChainId.ARBITRUM_GOERLI
   ) {
     [mainnetGasUsed, mainnetFeeInWei, gasUsedL1OnL2] =
-      calculateArbitrumToL1SecurityFee(
+      await calculateArbitrumToL1SecurityFee(
         route,
         swapOptions,
         l2GasData as ArbitrumGasData,
@@ -631,7 +634,7 @@ export const calculateL1GasFeesHelper = async (
     swapConfig: SwapOptionsUniversalRouter,
     gasData: ArbitrumGasData,
     chainId: ChainId
-  ): [BigNumber, BigNumber, BigNumber] {
+  ): Promise<[BigNumber, BigNumber, BigNumber]> {
     const route: RouteWithValidQuote = routes[0]!;
 
     const amountToken =
