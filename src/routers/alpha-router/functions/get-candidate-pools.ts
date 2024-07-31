@@ -36,7 +36,6 @@ import {
   USDC_SEPOLIA,
   USDT_ARBITRUM,
   USDT_BNB,
-  USDT_HOLESKY,
   USDT_MAINNET,
   USDT_OPTIMISM,
   USDT_OPTIMISM_GOERLI,
@@ -172,9 +171,6 @@ const baseTokensByChain: { [chainId in ChainId]?: Token[] } = {
   ],
   [ChainId.BASE]: [
     USDC_BASE,
-  ],
-  [ChainId.HOLESKY]: [
-    USDT_HOLESKY,
   ],
 };
 
