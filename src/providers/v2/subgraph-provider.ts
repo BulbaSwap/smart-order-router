@@ -40,7 +40,7 @@ const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
   [ChainId.MAINNET]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v2-dev',
   [ChainId.HOLESKY]:
-    'https://api.goldsky.com/api/public/project_cly6zqxwr6p4o011ddhk045by/subgraphs/bulbaswap-subgraph/v2-1.0.0/gn',
+    'https://api.goldsky.com/api/public/project_cly6zqxwr6p4o011ddhk045by/subgraphs/bulbaswap-subgraph/v2-2.0.0/gn',
 };
 
 const PAGE_SIZE = 1000; // 1k is max possible query size from subgraph.

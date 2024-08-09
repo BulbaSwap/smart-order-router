@@ -690,8 +690,8 @@ export const DAI_ZKSYNC = new Token(
 
 export const USDT_HOLESKY = new Token(
   ChainId.HOLESKY,
-  '0x9E12AD42c4E4d2acFBADE01a96446e48e6764B98',
-  18,
+  '0x67330f6BC8dcE05816662785A89fb0611F6D149F',
+  6,
   'USDT',
   'USDT Stablecoin'
 );
