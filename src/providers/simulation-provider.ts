@@ -1,27 +1,23 @@
+import { ChainId, TradeType } from '@bulbaswap/sdk-core';
+import { PERMIT2_ADDRESS } from '@bulbaswap/universal-router-sdk';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { ChainId, TradeType } from '@ququzone/sdk-core';
 import { BigNumber } from 'ethers/lib/ethers';
 
-import {
-  GasModelProviderConfig,
-  SwapOptions,
-  SwapRoute,
-  SwapType
-} from '../routers';
+import { SwapOptions, SwapRoute, SwapType } from '../routers';
 import { Erc20__factory } from '../types/other/factories/Erc20__factory';
 import { Permit2__factory } from '../types/other/factories/Permit2__factory';
-import { CurrencyAmount, log, SWAP_ROUTER_02_ADDRESSES } from '../util';
+import {
+  CurrencyAmount,
+  log,
+  SWAP_ROUTER_02_ADDRESSES,
+} from '../util';
 
 import { IPortionProvider } from './portion-provider';
-import { permit2Address } from '@uniswap/permit2-sdk';
+import { ProviderConfig } from './provider';
+import { ArbitrumGasData, OptimismGasData } from './v3/gas-data-provider';
 
 export type SimulationResult = {
-  transaction: {
-    hash: string;
-    gas_used: number;
-    gas: number;
-    error_message: string;
-  };
+  transaction: { hash: string; gas_used: number; gas: number; error_message: string };
   simulation: { state_overrides: Record<string, unknown> };
 };
 
@@ -47,11 +43,7 @@ export abstract class Simulator {
    * Returns a new SwapRoute with simulated gas estimates
    * @returns SwapRoute
    */
-  constructor(
-    provider: JsonRpcProvider,
-    portionProvider: IPortionProvider,
-    protected chainId: ChainId
-  ) {
+  constructor(provider: JsonRpcProvider, portionProvider: IPortionProvider, protected chainId: ChainId) {
     this.provider = provider;
     this.portionProvider = portionProvider;
   }
@@ -62,24 +54,28 @@ export abstract class Simulator {
     swapRoute: SwapRoute,
     amount: CurrencyAmount,
     quote: CurrencyAmount,
-    providerConfig?: GasModelProviderConfig
+    l2GasData?: OptimismGasData | ArbitrumGasData,
+    providerConfig?: ProviderConfig
   ): Promise<SwapRoute> {
-    const neededBalance =
-      swapRoute.trade.tradeType == TradeType.EXACT_INPUT ? amount : quote;
     if (
-      (neededBalance.currency.isNative && this.chainId == ChainId.MAINNET) ||
-      (await this.userHasSufficientBalance(
+      await this.userHasSufficientBalance(
         fromAddress,
         swapRoute.trade.tradeType,
         amount,
         quote
-      ))
+      )
     ) {
       log.info(
         'User has sufficient balance to simulate. Simulating transaction.'
       );
       try {
-        return this.simulateTransaction(fromAddress, swapOptions, swapRoute, providerConfig);
+        return this.simulateTransaction(
+          fromAddress,
+          swapOptions,
+          swapRoute,
+          l2GasData,
+          providerConfig
+        );
       } catch (e) {
         log.error({ e }, 'Error simulating transaction');
         return {
@@ -100,7 +96,8 @@ export abstract class Simulator {
     fromAddress: string,
     swapOptions: SwapOptions,
     swapRoute: SwapRoute,
-    providerConfig?: GasModelProviderConfig
+    l2GasData?: OptimismGasData | ArbitrumGasData,
+    providerConfig?: ProviderConfig
   ): Promise<SwapRoute>;
 
   protected async userHasSufficientBalance(
@@ -157,7 +154,7 @@ export abstract class Simulator {
     if (swapOptions.type == SwapType.UNIVERSAL_ROUTER) {
       const permit2Allowance = await tokenContract.allowance(
         fromAddress,
-        permit2Address(this.chainId)
+        PERMIT2_ADDRESS
       );
 
       // If a permit has been provided we don't need to check if UR has already been allowed.
@@ -176,7 +173,7 @@ export abstract class Simulator {
 
       // Check UR has been approved from Permit2.
       const permit2Contract = Permit2__factory.connect(
-        permit2Address(this.chainId),
+        PERMIT2_ADDRESS,
         provider
       );
 

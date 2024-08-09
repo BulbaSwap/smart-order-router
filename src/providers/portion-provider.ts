@@ -1,6 +1,6 @@
+import { ZERO } from '@bulbaswap/router-sdk';
+import { Fraction, TradeType } from '@bulbaswap/sdk-core';
 import { BigNumber } from '@ethersproject/bignumber';
-import { ZERO } from '@ququzone/router-sdk';
-import { Fraction, TradeType } from '@ququzone/sdk-core';
 
 import {
   RouteWithValidQuote,
@@ -22,7 +22,6 @@ export interface IPortionProvider {
   getPortionAmount(
     tokenOutAmount: CurrencyAmount,
     tradeType: TradeType,
-    tokenOutHasFot?: boolean,
     swapConfig?: SwapOptions
   ): CurrencyAmount | undefined;
 
@@ -117,10 +116,9 @@ export class PortionProvider implements IPortionProvider {
   getPortionAmount(
     tokenOutAmount: CurrencyAmount,
     tradeType: TradeType,
-    tokenOutHasFot?: boolean,
     swapConfig?: SwapOptions
   ): CurrencyAmount | undefined {
-    if (tokenOutHasFot || swapConfig?.type !== SwapType.UNIVERSAL_ROUTER) {
+    if (swapConfig?.type !== SwapType.UNIVERSAL_ROUTER) {
       return undefined;
     }
 
@@ -204,13 +202,9 @@ export class PortionProvider implements IPortionProvider {
     }
 
     return routeWithQuotes.map((routeWithQuote) => {
-      const tokenOut =
-        routeWithQuote.tokenPath[routeWithQuote.tokenPath.length - 1];
-      const tokenOutHasFot = tokenOut && tokenOut.buyFeeBps?.gt(0);
       const portionAmount = this.getPortionAmount(
         routeWithQuote.quote,
         tradeType,
-        tokenOutHasFot,
         swapConfig
       );
 

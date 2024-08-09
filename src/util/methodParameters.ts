@@ -3,14 +3,14 @@ import {
   Protocol,
   SwapRouter as SwapRouter02,
   Trade,
-} from '@ququzone/router-sdk';
-import { ChainId, Currency, TradeType } from '@ququzone/sdk-core';
+} from '@bulbaswap/router-sdk';
+import { ChainId, Currency, TradeType } from '@bulbaswap/sdk-core';
 import {
-  SwapRouter as UniversalRouter,
+  SwapRouter as UniveralRouter,
   UNIVERSAL_ROUTER_ADDRESS,
-} from '@ququzone/universal-router-sdk';
-import { Route as V2RouteRaw } from '@ququzone/v2-sdk';
-import { Route as V3RouteRaw } from '@ququzone/v3-sdk';
+} from '@bulbaswap/universal-router-sdk';
+import { Route as V2RouteRaw } from '@bulbaswap/v2-sdk';
+import { Route as V3RouteRaw } from '@bulbaswap/v3-sdk';
 import _ from 'lodash';
 
 import {
@@ -18,9 +18,9 @@ import {
   MethodParameters,
   MixedRouteWithValidQuote,
   RouteWithValidQuote,
+  SWAP_ROUTER_02_ADDRESSES,
   SwapOptions,
   SwapType,
-  SWAP_ROUTER_02_ADDRESSES,
   V2RouteWithValidQuote,
   V3RouteWithValidQuote,
 } from '..';
@@ -235,7 +235,7 @@ export function buildSwapMethodParameters(
 ): MethodParameters {
   if (swapConfig.type == SwapType.UNIVERSAL_ROUTER) {
     return {
-      ...UniversalRouter.swapERC20CallParameters(trade, swapConfig),
+      ...UniveralRouter.swapERC20CallParameters(trade, swapConfig),
       to: UNIVERSAL_ROUTER_ADDRESS(chainId),
     };
   } else if (swapConfig.type == SwapType.SWAP_ROUTER_02) {

@@ -1,4 +1,4 @@
-import { Protocol } from '@ququzone/router-sdk';
+import { Protocol } from '@bulbaswap/router-sdk';
 
 export const TO_PROTOCOL = (protocol: string): Protocol => {
   switch (protocol.toLowerCase()) {

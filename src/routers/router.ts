@@ -1,25 +1,25 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import {
   CondensedAddLiquidityOptions,
   MixedRouteSDK,
   Protocol,
   Trade,
-} from '@ququzone/router-sdk';
+} from '@bulbaswap/router-sdk';
 import {
   Currency,
   Fraction,
   Percent,
   Token,
   TradeType,
-} from '@ququzone/sdk-core';
-import { SwapOptions as UniversalRouterSwapOptions } from '@ququzone/universal-router-sdk';
-import { Route as V2RouteRaw } from '@ququzone/v2-sdk';
+} from '@bulbaswap/sdk-core';
+import { SwapOptions as UniversalRouterSwapOptions } from '@bulbaswap/universal-router-sdk';
+import { Route as V2RouteRaw } from '@bulbaswap/v2-sdk';
 import {
-  MethodParameters as SDKMethodParameters,
   Pool,
   Position,
+  MethodParameters as SDKMethodParameters,
   Route as V3RouteRaw,
-} from '@ququzone/v3-sdk';
+} from '@bulbaswap/v3-sdk';
+import { BigNumber } from '@ethersproject/bignumber';
 
 import { SimulationStatus } from '../providers';
 import { CurrencyAmount } from '../util/amounts';
@@ -71,11 +71,6 @@ export type SwapRoute = {
    */
   estimatedGasUsedUSD: CurrencyAmount;
   /**
-   * The estimate of the gas used by the swap in terms of the gas token if specified.
-   * will be undefined if no gas token is specified in the AlphaRouter config
-   */
-  estimatedGasUsedGasToken?: CurrencyAmount;
-  /*
    * The gas price used when computing quoteGasAdjusted, estimatedGasUsedQuoteToken, etc.
    */
   gasPriceWei: BigNumber;
@@ -169,13 +164,13 @@ export type SwapOptionsSwapRouter02 = {
     s: string;
   } & (
     | {
-      amount: string;
-      deadline: string;
-    }
+        amount: string;
+        deadline: string;
+      }
     | {
-      nonce: string;
-      expiry: string;
-    }
+        nonce: string;
+        expiry: string;
+      }
   );
 };
 

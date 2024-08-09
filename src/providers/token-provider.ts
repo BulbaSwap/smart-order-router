@@ -1,7 +1,7 @@
+import { ChainId, Token } from '@bulbaswap/sdk-core';
 import { Interface } from '@ethersproject/abi';
 import { BigNumber } from '@ethersproject/bignumber';
 import { parseBytes32String } from '@ethersproject/strings';
-import { ChainId, Token } from '@ququzone/sdk-core';
 import _ from 'lodash';
 
 import { IERC20Metadata__factory } from '../types/v3/factories/IERC20Metadata__factory';
@@ -151,13 +151,6 @@ export const USDC_OPTIMISM = new Token(
   '0x7F5c764cBc14f9669B88837ca1490cCa17c31607',
   6,
   'USDC',
-  'USD//C.e'
-);
-export const USDC_NATIVE_OPTIMISM = new Token(
-  ChainId.OPTIMISM,
-  '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85',
-  6,
-  'USDC',
   'USD//C'
 );
 export const USDT_OPTIMISM = new Token(
@@ -218,45 +211,9 @@ export const DAI_OPTIMISM_GOERLI = new Token(
   'Dai Stablecoin'
 );
 
-export const USDC_OPTIMISM_SEPOLIA = new Token(
-  ChainId.OPTIMISM_SEPOLIA,
-  '0x7E07E15D2a87A24492740D16f5bdF58c16db0c4E',
-  6,
-  'USDC',
-  'USD//C'
-);
-export const USDT_OPTIMISM_SEPOLIA = new Token(
-  ChainId.OPTIMISM_SEPOLIA,
-  '0x853eb4bA5D0Ba2B77a0A5329Fd2110d5CE149ECE',
-  6,
-  'USDT',
-  'Tether USD'
-);
-export const WBTC_OPTIMISM_SEPOLIA = new Token(
-  ChainId.OPTIMISM_SEPOLIA,
-  '0xe0a592353e81a94Db6E3226fD4A99F881751776a',
-  8,
-  'WBTC',
-  'Wrapped BTC'
-);
-export const DAI_OPTIMISM_SEPOLIA = new Token(
-  ChainId.OPTIMISM_SEPOLIA,
-  '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1',
-  18,
-  'DAI',
-  'Dai Stablecoin'
-);
-
 export const USDC_ARBITRUM = new Token(
   ChainId.ARBITRUM_ONE,
   '0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8',
-  6,
-  'USDC',
-  'USD//C.e'
-);
-export const USDC_NATIVE_ARBITRUM = new Token(
-  ChainId.ARBITRUM_ONE,
-  '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
   6,
   'USDC',
   'USD//C'
@@ -299,27 +256,10 @@ export const DAI_ARBITRUM_GOERLI = new Token(
   'Dai Stablecoin'
 );
 
-export const DAI_ARBITRUM_SEPOLIA = new Token(
-  ChainId.ARBITRUM_SEPOLIA,
-  '0xc3826E277485c33F3D99C9e0CBbf8449513210EE',
-  18,
-  'DAI',
-  'Dai Stablecoin'
-);
-
 // Bridged version of official Goerli USDC
 export const USDC_ARBITRUM_GOERLI = new Token(
   ChainId.ARBITRUM_GOERLI,
   '0x8FB1E3fC51F3b789dED7557E680551d93Ea9d892',
-  6,
-  'USDC',
-  'USD//C'
-);
-
-// Bridged version of official Sepolia USDC
-export const USDC_ARBITRUM_SEPOLIA = new Token(
-  ChainId.ARBITRUM_SEPOLIA,
-  '0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d',
   6,
   'USDC',
   'USD//C'
@@ -345,13 +285,6 @@ export const WETH_POLYGON = new Token(
 export const USDC_POLYGON = new Token(
   ChainId.POLYGON,
   '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
-  6,
-  'USDC',
-  'USD//C.e'
-);
-export const USDC_NATIVE_POLYGON = new Token(
-  ChainId.POLYGON,
-  '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
   6,
   'USDC',
   'USD//C'
@@ -471,27 +404,6 @@ export const CUSD_CELO = new Token(
   'CUSD',
   'Celo Dollar Stablecoin'
 );
-export const USDC_CELO = new Token(
-  ChainId.CELO,
-  '0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664',
-  18,
-  'USDC',
-  'USD//C.e'
-);
-export const USDC_WORMHOLE_CELO = new Token(
-  ChainId.CELO,
-  '0x37f750B7cC259A2f741AF45294f6a16572CF5cAd',
-  18,
-  'USDC',
-  'USD//C.e'
-);
-export const USDC_NATIVE_CELO = new Token(
-  ChainId.CELO,
-  '0x765DE816845861e75A25fCA122bb6898B8B1282a',
-  18,
-  'USDC',
-  'USD//C'
-);
 
 export const CEUR_CELO = new Token(
   ChainId.CELO,
@@ -549,20 +461,6 @@ export const USDC_AVAX = new Token(
   'USDC',
   'USDC Token'
 );
-export const USDC_BRIDGED_AVAX = new Token(
-  ChainId.AVALANCHE,
-  '0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664',
-  6,
-  'USDC',
-  'USDC Token'
-);
-export const USDC_NATIVE_AVAX = new Token(
-  ChainId.AVALANCHE,
-  '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e',
-  6,
-  'USDC',
-  'USDC Token'
-);
 
 // Base Tokens
 export const USDC_BASE = new Token(
@@ -571,14 +469,7 @@ export const USDC_BASE = new Token(
   6,
   'USDbC',
   'USD Base Coin'
-);
-export const USDC_NATIVE_BASE = new Token(
-  ChainId.BASE,
-  '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
-  6,
-  'USDbC',
-  'USD Base Coin'
-);
+)
 
 // Base Goerli Tokens
 export const USDC_BASE_GOERLI = new Token(
@@ -587,7 +478,7 @@ export const USDC_BASE_GOERLI = new Token(
   6,
   'USDbC',
   'USD Base Coin'
-);
+)
 
 // Gnosis Tokens
 export const USDC_ETHEREUM_GNOSIS = new Token(
@@ -646,48 +537,6 @@ export const WBTC_MOONBEAM = new Token(
   'WBTC',
   'Wrapped BTC bridged using Multichain'
 );
-
-// Blast Tokens
-export const USDB_BLAST = new Token(
-  ChainId.BLAST,
-  '0x4300000000000000000000000000000000000003',
-  18,
-  'USDB',
-  'USD Blast'
-);
-
-export const USDC_ZORA = new Token(
-  ChainId.ZORA,
-  '0xCccCCccc7021b32EBb4e8C08314bD62F7c653EC4',
-  6,
-  'USDzC',
-  'USD Coin (Bridged from Ethereum)'
-);
-
-export const USDC_ZKSYNC = new Token(
-  ChainId.ZKSYNC,
-  '0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4',
-  6,
-  'USDC',
-  'USDC'
-);
-
-export const USDCE_ZKSYNC = new Token(
-  ChainId.ZKSYNC,
-  '0x3355df6D4c9C3035724Fd0e3914dE96A5a83aaf4',
-  6,
-  'USDC.e',
-  'Bridged USDC (zkSync)'
-);
-
-export const DAI_ZKSYNC = new Token(
-  ChainId.ZKSYNC,
-  '0x4B9eb6c0b6ea15176BBF62841C6B2A8a398cb656',
-  18,
-  'DAI',
-  'Dai Stablecoin'
-);
-
 export const USDT_HOLESKY = new Token(
   ChainId.HOLESKY,
   '0x67330f6BC8dcE05816662785A89fb0611F6D149F',
@@ -700,7 +549,7 @@ export class TokenProvider implements ITokenProvider {
   constructor(
     private chainId: ChainId,
     protected multicall2Provider: IMulticallProvider
-  ) { }
+  ) {}
 
   private async getTokenSymbol(
     addresses: string[],
@@ -845,8 +694,10 @@ export class TokenProvider implements ITokenProvider {
       }
 
       log.info(
-        `Got token symbol and decimals for ${Object.values(addressToToken).length
-        } out of ${addresses.length} tokens on-chain ${providerConfig ? `as of: ${providerConfig?.blockNumber}` : ''
+        `Got token symbol and decimals for ${
+          Object.values(addressToToken).length
+        } out of ${addresses.length} tokens on-chain ${
+          providerConfig ? `as of: ${providerConfig?.blockNumber}` : ''
         }`
       );
     }
@@ -877,14 +728,10 @@ export const DAI_ON = (chainId: ChainId): Token => {
       return DAI_OPTIMISM;
     case ChainId.OPTIMISM_GOERLI:
       return DAI_OPTIMISM_GOERLI;
-    case ChainId.OPTIMISM_SEPOLIA:
-      return DAI_OPTIMISM_SEPOLIA;
     case ChainId.ARBITRUM_ONE:
       return DAI_ARBITRUM;
     case ChainId.ARBITRUM_GOERLI:
       return DAI_ARBITRUM_GOERLI;
-    case ChainId.ARBITRUM_SEPOLIA:
-      return DAI_ARBITRUM_SEPOLIA;
     case ChainId.POLYGON:
       return DAI_POLYGON;
     case ChainId.POLYGON_MUMBAI:
@@ -899,8 +746,6 @@ export const DAI_ON = (chainId: ChainId): Token => {
       return DAI_BNB;
     case ChainId.AVALANCHE:
       return DAI_AVAX;
-    case ChainId.ZKSYNC:
-      return DAI_ZKSYNC;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -916,8 +761,6 @@ export const USDT_ON = (chainId: ChainId): Token => {
       return USDT_OPTIMISM;
     case ChainId.OPTIMISM_GOERLI:
       return USDT_OPTIMISM_GOERLI;
-    case ChainId.OPTIMISM_SEPOLIA:
-      return USDT_OPTIMISM_SEPOLIA;
     case ChainId.ARBITRUM_ONE:
       return USDT_ARBITRUM;
     case ChainId.BNB:
@@ -941,14 +784,10 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_OPTIMISM;
     case ChainId.OPTIMISM_GOERLI:
       return USDC_OPTIMISM_GOERLI;
-    case ChainId.OPTIMISM_SEPOLIA:
-      return USDC_OPTIMISM_SEPOLIA;
     case ChainId.ARBITRUM_ONE:
       return USDC_ARBITRUM;
     case ChainId.ARBITRUM_GOERLI:
       return USDC_ARBITRUM_GOERLI;
-    case ChainId.ARBITRUM_SEPOLIA:
-      return USDC_ARBITRUM_SEPOLIA;
     case ChainId.POLYGON:
       return USDC_POLYGON;
     case ChainId.POLYGON_MUMBAI:
@@ -965,10 +804,6 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_BASE;
     case ChainId.BASE_GOERLI:
       return USDC_BASE_GOERLI;
-    case ChainId.ZORA:
-      return USDC_ZORA;
-    case ChainId.ZKSYNC:
-      return USDCE_ZKSYNC;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }

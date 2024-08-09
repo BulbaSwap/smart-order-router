@@ -1,4 +1,4 @@
-import { ChainId } from '@ququzone/sdk-core';
+import { ChainId } from '@bulbaswap/sdk-core';
 
 import { AlphaRouterConfig, LowerCaseStringArray } from './alpha-router';
 
@@ -9,10 +9,8 @@ export const DEFAULT_ROUTING_CONFIG_BY_CHAIN = (
     // Optimism
     case ChainId.OPTIMISM:
     case ChainId.OPTIMISM_GOERLI:
-    case ChainId.OPTIMISM_SEPOLIA:
     case ChainId.BASE:
     case ChainId.BASE_GOERLI:
-    case ChainId.BLAST:
       return {
         v2PoolSelection: {
           topN: 3,
@@ -41,7 +39,6 @@ export const DEFAULT_ROUTING_CONFIG_BY_CHAIN = (
     // have to adjust the routing config so we explore fewer routes.
     case ChainId.ARBITRUM_ONE:
     case ChainId.ARBITRUM_GOERLI:
-    case ChainId.ARBITRUM_SEPOLIA:
     case ChainId.CELO:
     case ChainId.CELO_ALFAJORES:
       return {

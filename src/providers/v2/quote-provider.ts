@@ -1,9 +1,6 @@
+import { TradeType } from '@bulbaswap/sdk-core';
+import { InsufficientInputAmountError, InsufficientReservesError } from '@bulbaswap/v2-sdk';
 import { BigNumber } from '@ethersproject/bignumber';
-import { TradeType } from '@ququzone/sdk-core';
-import {
-  InsufficientInputAmountError,
-  InsufficientReservesError,
-} from '@ququzone/v2-sdk';
 
 import { V2Route } from '../../routers/router';
 import { CurrencyAmount } from '../../util/amounts';
@@ -42,7 +39,8 @@ export interface IV2QuoteProvider {
  */
 export class V2QuoteProvider implements IV2QuoteProvider {
   /* eslint-disable @typescript-eslint/no-empty-function */
-  constructor() { }
+  constructor() {
+  }
 
   /* eslint-enable @typescript-eslint/no-empty-function */
 

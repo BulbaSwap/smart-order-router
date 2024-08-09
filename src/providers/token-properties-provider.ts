@@ -1,5 +1,5 @@
+import { ChainId, Token } from '@bulbaswap/sdk-core';
 import { BigNumber } from '@ethersproject/bignumber';
-import { ChainId, Token } from '@ququzone/sdk-core';
 
 import { log, metric, MetricLoggerUnit } from '../util';
 
@@ -19,8 +19,8 @@ import {
 export const DEFAULT_TOKEN_PROPERTIES_RESULT: TokenPropertiesResult = {
   tokenFeeResult: DEFAULT_TOKEN_FEE_RESULT,
 };
-export const POSITIVE_CACHE_ENTRY_TTL = 1200; // 20 minutes in seconds
-export const NEGATIVE_CACHE_ENTRY_TTL = 1200; // 20 minutes in seconds
+export const POSITIVE_CACHE_ENTRY_TTL = 600; // 10 minutes in seconds
+export const NEGATIVE_CACHE_ENTRY_TTL = 600; // 10 minutes in seconds
 
 type Address = string;
 export type TokenPropertiesResult = {
@@ -47,7 +47,7 @@ export class TokenPropertiesProvider implements ITokenPropertiesProvider {
     private allowList = DEFAULT_ALLOWLIST,
     private positiveCacheEntryTTL = POSITIVE_CACHE_ENTRY_TTL,
     private negativeCacheEntryTTL = NEGATIVE_CACHE_ENTRY_TTL
-  ) { }
+  ) {}
 
   public async getTokensProperties(
     tokens: Token[],
@@ -64,15 +64,14 @@ export class TokenPropertiesProvider implements ITokenPropertiesProvider {
 
     const addressesToFetchFeesOnchain: string[] = [];
     const addressesRaw = this.buildAddressesRaw(tokens);
-    const addressesCacheKeys = this.buildAddressesCacheKeys(tokens);
 
     const tokenProperties = await this.tokenPropertiesCache.batchGet(
-      addressesCacheKeys
+      addressesRaw
     );
 
     // Check if we have cached token validation results for any tokens.
     for (const address of addressesRaw) {
-      const cachedValue = tokenProperties[this.CACHE_KEY(this.chainId, address.toLowerCase())];
+      const cachedValue = tokenProperties[address];
       if (cachedValue) {
         metric.putMetric(
           'TokenPropertiesProviderBatchGetCacheHit',
@@ -196,18 +195,5 @@ export class TokenPropertiesProvider implements ITokenPropertiesProvider {
     }
 
     return addressesRaw;
-  }
-
-  private buildAddressesCacheKeys(tokens: Token[]): Set<string> {
-    const addressesCacheKeys = new Set<string>();
-
-    for (const token of tokens) {
-      const addressCacheKey = this.CACHE_KEY(this.chainId, token.address.toLowerCase());
-      if (!addressesCacheKeys.has(addressCacheKey)) {
-        addressesCacheKeys.add(addressCacheKey);
-      }
-    }
-
-    return addressesCacheKeys;
   }
 }

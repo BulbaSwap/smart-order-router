@@ -1,5 +1,5 @@
-import { Protocol } from '@ququzone/router-sdk';
-import { ChainId, Currency, Token, TradeType } from '@ququzone/sdk-core';
+import { Protocol } from '@bulbaswap/router-sdk';
+import { ChainId, Currency, Token, TradeType } from '@bulbaswap/sdk-core';
 import _ from 'lodash';
 
 import {
@@ -11,15 +11,9 @@ import {
   IV2SubgraphProvider,
   IV3PoolProvider,
   IV3SubgraphProvider,
-  TokenValidationResult,
+  TokenValidationResult
 } from '../../../providers';
-import {
-  CurrencyAmount,
-  log,
-  metric,
-  MetricLoggerUnit,
-  routeToString,
-} from '../../../util';
+import { CurrencyAmount, log, metric, MetricLoggerUnit, routeToString } from '../../../util';
 import { MixedRoute } from '../../router';
 import { AlphaRouterConfig } from '../alpha-router';
 import { MixedRouteWithValidQuote } from '../entities';
@@ -28,17 +22,14 @@ import {
   CandidatePoolsBySelectionCriteria,
   getMixedRouteCandidatePools,
   V2CandidatePools,
-  V3CandidatePools,
+  V3CandidatePools
 } from '../functions/get-candidate-pools';
 import { IGasModel } from '../gas-models';
 
 import { BaseQuoter } from './base-quoter';
 import { GetQuotesResult, GetRoutesResult } from './model';
 
-export class MixedQuoter extends BaseQuoter<
-  [V3CandidatePools, V2CandidatePools],
-  MixedRoute
-> {
+export class MixedQuoter extends BaseQuoter<[V3CandidatePools, V2CandidatePools], MixedRoute> {
   protected v3SubgraphProvider: IV3SubgraphProvider;
   protected v3PoolProvider: IV3PoolProvider;
   protected v2SubgraphProvider: IV2SubgraphProvider;
@@ -56,13 +47,7 @@ export class MixedQuoter extends BaseQuoter<
     blockedTokenListProvider?: ITokenListProvider,
     tokenValidatorProvider?: ITokenValidatorProvider
   ) {
-    super(
-      tokenProvider,
-      chainId,
-      Protocol.MIXED,
-      blockedTokenListProvider,
-      tokenValidatorProvider
-    );
+    super(tokenProvider, chainId, Protocol.MIXED, blockedTokenListProvider, tokenValidatorProvider);
     this.v3SubgraphProvider = v3SubgraphProvider;
     this.v3PoolProvider = v3PoolProvider;
     this.v2SubgraphProvider = v2SubgraphProvider;
@@ -96,7 +81,7 @@ export class MixedQuoter extends BaseQuoter<
       v3poolProvider: this.v3PoolProvider,
       v2poolProvider: this.v2PoolProvider,
       routingConfig,
-      chainId: this.chainId,
+      chainId: this.chainId
     });
 
     const V3poolsRaw = V3poolAccessor.getAllPools();
@@ -146,15 +131,11 @@ export class MixedQuoter extends BaseQuoter<
       maxSwapsPerPath
     );
 
-    metric.putMetric(
-      'MixedGetRoutesLoad',
-      Date.now() - beforeGetRoutes,
-      MetricLoggerUnit.Milliseconds
-    );
+    metric.putMetric('MixedGetRoutesLoad', Date.now() - beforeGetRoutes, MetricLoggerUnit.Milliseconds);
 
     return {
       routes,
-      candidatePools,
+      candidatePools
     };
   }
 
@@ -171,9 +152,7 @@ export class MixedQuoter extends BaseQuoter<
     const beforeGetQuotes = Date.now();
     log.info('Starting to get mixed quotes');
     if (gasModel === undefined) {
-      throw new Error(
-        'GasModel for MixedRouteWithValidQuote is required to getQuotes'
-      );
+      throw new Error('GasModel for MixedRouteWithValidQuote is required to getQuotes');
     }
     if (routes.length == 0) {
       return { routesWithValidQuotes: [], candidatePools };
@@ -189,7 +168,9 @@ export class MixedQuoter extends BaseQuoter<
       `Getting quotes for mixed for ${routes.length} routes with ${amounts.length} amounts per route.`
     );
 
-    const { routesWithQuotes } = await quoteFn<MixedRoute>(amounts, routes, routingConfig);
+    const { routesWithQuotes } = await quoteFn<MixedRoute>(amounts, routes, {
+      blockNumber: routingConfig.blockNumber,
+    });
 
     metric.putMetric(
       'MixedQuotesLoad',
@@ -256,15 +237,12 @@ export class MixedQuoter extends BaseQuoter<
       }
     }
 
-    metric.putMetric(
-      'MixedGetQuotesLoad',
-      Date.now() - beforeGetQuotes,
-      MetricLoggerUnit.Milliseconds
-    );
+    metric.putMetric('MixedGetQuotesLoad', Date.now() - beforeGetQuotes, MetricLoggerUnit.Milliseconds);
 
     return {
       routesWithValidQuotes,
-      candidatePools,
+      candidatePools
     };
   }
+
 }

@@ -1,4 +1,4 @@
-import { ChainId } from '@ququzone/sdk-core';
+import { ChainId } from '@bulbaswap/sdk-core';
 
 import { EIP1559GasPriceProvider } from './eip-1559-gas-price-provider';
 import { GasPrice, IGasPriceProvider } from './gas-price-provider';
@@ -27,20 +27,11 @@ export class OnChainGasPriceProvider extends IGasPriceProvider {
     super();
   }
 
-  public override async getGasPrice(
-    latestBlockNumber: number,
-    requestBlockNumber?: number
-  ): Promise<GasPrice> {
+  public async getGasPrice(): Promise<GasPrice> {
     if (this.eipChains.includes(this.chainId)) {
-      return this.eip1559GasPriceProvider.getGasPrice(
-        latestBlockNumber,
-        requestBlockNumber
-      );
+      return this.eip1559GasPriceProvider.getGasPrice();
     }
 
-    return this.legacyGasPriceProvider.getGasPrice(
-      latestBlockNumber,
-      requestBlockNumber
-    );
+    return this.legacyGasPriceProvider.getGasPrice();
   }
 }

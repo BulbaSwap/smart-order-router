@@ -1,5 +1,5 @@
-import { ChainId, Token } from '@ququzone/sdk-core';
-import { Pair } from '@ququzone/v2-sdk';
+import { ChainId, Token } from '@bulbaswap/sdk-core';
+import { Pair } from '@bulbaswap/v2-sdk';
 import _ from 'lodash';
 
 import { WRAPPED_NATIVE_CURRENCY } from '../../util/chains';
@@ -20,17 +20,14 @@ import {
   DAI_OPTIMISM,
   ETH_BNB,
   OP_OPTIMISM,
-  USDB_BLAST,
   USDC_ARBITRUM,
   USDC_AVAX,
   USDC_BASE,
   USDC_BNB,
   USDC_MAINNET,
   USDC_MOONBEAM,
-  USDC_NATIVE_ARBITRUM,
   USDC_OPTIMISM,
   USDC_POLYGON,
-  USDC_ZKSYNC, USDCE_ZKSYNC,
   USDT_ARBITRUM,
   USDT_BNB,
   USDT_HOLESKY,
@@ -60,7 +57,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   ],
   [ChainId.GOERLI]: [WRAPPED_NATIVE_CURRENCY[ChainId.GOERLI]!],
   [ChainId.SEPOLIA]: [WRAPPED_NATIVE_CURRENCY[ChainId.SEPOLIA]!],
-  //v2 not deployed on [arbitrum, polygon, celo, gnosis, moonbeam, bnb, avalanche] and their testnets
+  //v2 not deployed on [optimism, arbitrum, polygon, celo, gnosis, moonbeam, bnb, avalanche] and their testnets
   [ChainId.OPTIMISM]: [
     WRAPPED_NATIVE_CURRENCY[ChainId.OPTIMISM]!,
     USDC_OPTIMISM,
@@ -74,7 +71,6 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     WBTC_ARBITRUM,
     DAI_ARBITRUM,
     USDC_ARBITRUM,
-    USDC_NATIVE_ARBITRUM,
     USDT_ARBITRUM,
     ARB_ARBITRUM,
   ],
@@ -112,9 +108,9 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.ZORA]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZORA]!],
   [ChainId.ZORA_SEPOLIA]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZORA_SEPOLIA]!],
   [ChainId.ROOTSTOCK]: [WRAPPED_NATIVE_CURRENCY[ChainId.ROOTSTOCK]!],
-  [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!, USDB_BLAST],
-  [ChainId.ZKSYNC]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZKSYNC]!, USDCE_ZKSYNC, USDC_ZKSYNC],
-  [ChainId.HOLESKY]: [WRAPPED_NATIVE_CURRENCY[ChainId.HOLESKY]!, USDT_HOLESKY]
+  [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!],
+  [ChainId.ZKSYNC]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZKSYNC]!],
+  [ChainId.HOLESKY]: [WRAPPED_NATIVE_CURRENCY[ChainId.HOLESKY]!, USDT_HOLESKY],
 };
 
 /**
@@ -181,14 +177,14 @@ export class StaticV2SubgraphProvider implements IV2SubgraphProvider {
           id: poolAddress,
           liquidity: '100',
           token0: {
-            id: token0.address,
+            id: token0.address
           },
           token1: {
-            id: token1.address,
+            id: token1.address
           },
           supply: 100,
           reserve: 100,
-          reserveUSD: 100,
+          reserveUSD: 100
         };
       })
       .compact()

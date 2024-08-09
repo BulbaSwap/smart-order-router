@@ -1,6 +1,6 @@
-# Uniswap Smart Order Router
+# Bulbaswap Smart Order Router
 
-This repository contains routing logic for the Uniswap V3 protocol.
+This repository contains routing logic for the Bulbaswap V3 protocol.
 
 It searches for the most efficient way to swap token A for token B, considering splitting swaps across multiple routes and gas costs.
 
@@ -158,11 +158,6 @@ Total ticks crossed: 7
 
 ```
 
-```
-./bin/cli quote --tokenIn 0x7F5c764cBc14f9669B88837ca1490cCa17c31607 --tokenOut 0x4200000000000000000000000000000000000042 --amount 1 --exactIn --minSplits 1 --protocols v2 --router alpha --chainId 10
-```
-
-
 ## Optimism-Goerli
 
 ```
@@ -229,12 +224,6 @@ Total ticks crossed: 7
 ./bin/cli quote --tokenIn 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA --tokenOut 0x4200000000000000000000000000000000000006 --amount 10 --exactIn --minSplits 1 --protocols v3 --router alpha --chainId 8453
 ```
 
-## ZKSYNC Mainnet
-
-```
-./bin/cli quote --tokenIn 0x5aea5775959fbc2557cc8789bc1bf90a239d9a91 --tokenOut 0x1d17cbcf0d6d143135ae902365d2e5e2a16538d4 --amount 10 --exactIn --minSplits 1 --protocols v3 --router alpha --chainId 324
-```
-
 
 ## Adding a new Chain
 
@@ -266,7 +255,7 @@ By default each `eth_call` will consume up to:
 
 These parameters should work on Infura and Alchemy by default.
 
-This total amount of gas each `eth_call` can consume is equal to the `multicallChunk` config value multiplied by the `gasLimitPerCall` config value. If you are using a node provider with a lower gas limit per `eth_call` you will need to override the default `V3QuoteProvider` with an instance that lowers the `multicallChunk` and `gasLimitPerCall` parameters such that the multiplication is below your node providers limit. Lowering these values will cause each multicall to consume less gas. See [here](https://github.com/Uniswap/smart-order-router/blob/98c58bdee9981fd9ffac9e7d7a97b18302d5f77a/src/routers/alpha-router/alpha-router.ts#L415-L416) for examples of how to set these values. Note some providers have different limits per chain.
+This total amount of gas each `eth_call` can consume is equal to the `multicallChunk` config value multiplied by the `gasLimitPerCall` config value. If you are using a node provider with a lower gas limit per `eth_call` you will need to override the default `V3QuoteProvider` with an instance that lowers the `multicallChunk` and `gasLimitPerCall` parameters such that the multiplication is below your node providers limit. Lowering these values will cause each multicall to consume less gas. See [here](https://github.com/Bulbaswap/smart-order-router/blob/98c58bdee9981fd9ffac9e7d7a97b18302d5f77a/src/routers/alpha-router/alpha-router.ts#L415-L416) for examples of how to set these values. Note some providers have different limits per chain.
 
 If you are running your own node, we recommend you configure start your node with a higher gas limit per call. For example, on Geth you can use the command line argument `--rpc.gascap 150000000` to raise the limit to 150m, which is enough to run the default configuration of this package.
 

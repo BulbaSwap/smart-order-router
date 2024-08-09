@@ -1,7 +1,7 @@
+import { Protocol } from '@bulbaswap/router-sdk';
+import { Token, TradeType } from '@bulbaswap/sdk-core';
+import { Pool } from '@bulbaswap/v3-sdk';
 import { BigNumber } from '@ethersproject/bignumber';
-import { Protocol } from '@ququzone/router-sdk';
-import { Token, TradeType } from '@ququzone/sdk-core';
-import { Pool } from '@ququzone/v3-sdk';
 import _ from 'lodash';
 
 import { IV2PoolProvider } from '../../../providers/v2/pool-provider';
@@ -32,7 +32,6 @@ export interface IRouteWithValidQuote<
   // The gas cost in terms of the quote token.
   gasCostInToken: CurrencyAmount;
   gasCostInUSD: CurrencyAmount;
-  gasCostInGasToken?: CurrencyAmount;
   tradeType: TradeType;
   poolAddresses: string[];
   tokenPath: Token[];
@@ -88,7 +87,6 @@ export class V2RouteWithValidQuote implements IV2RouteWithValidQuote {
   public gasEstimate: BigNumber;
   public gasCostInToken: CurrencyAmount;
   public gasCostInUSD: CurrencyAmount;
-  public gasCostInGasToken?: CurrencyAmount;
   public tradeType: TradeType;
   public poolAddresses: string[];
   public tokenPath: Token[];
@@ -120,13 +118,12 @@ export class V2RouteWithValidQuote implements IV2RouteWithValidQuote {
     this.quoteToken = quoteToken;
     this.tradeType = tradeType;
 
-    const { gasEstimate, gasCostInToken, gasCostInUSD, gasCostInGasToken } =
+    const { gasEstimate, gasCostInToken, gasCostInUSD } =
       this.gasModel.estimateGasCost(this);
 
     this.gasCostInToken = gasCostInToken;
     this.gasCostInUSD = gasCostInUSD;
     this.gasEstimate = gasEstimate;
-    this.gasCostInGasToken = gasCostInGasToken;
 
     // If its exact out, we need to request *more* of the input token to account for the gas.
     if (this.tradeType == TradeType.EXACT_INPUT) {
@@ -184,7 +181,6 @@ export class V3RouteWithValidQuote implements IV3RouteWithValidQuote {
   public gasEstimate: BigNumber;
   public gasCostInToken: CurrencyAmount;
   public gasCostInUSD: CurrencyAmount;
-  public gasCostInGasToken?: CurrencyAmount;
   public tradeType: TradeType;
   public poolAddresses: string[];
   public tokenPath: Token[];
@@ -222,13 +218,12 @@ export class V3RouteWithValidQuote implements IV3RouteWithValidQuote {
     this.quoteToken = quoteToken;
     this.tradeType = tradeType;
 
-    const { gasEstimate, gasCostInToken, gasCostInUSD, gasCostInGasToken } =
+    const { gasEstimate, gasCostInToken, gasCostInUSD } =
       this.gasModel.estimateGasCost(this);
 
     this.gasCostInToken = gasCostInToken;
     this.gasCostInUSD = gasCostInUSD;
     this.gasEstimate = gasEstimate;
-    this.gasCostInGasToken = gasCostInGasToken;
 
     // If its exact out, we need to request *more* of the input token to account for the gas.
     if (this.tradeType == TradeType.EXACT_INPUT) {
@@ -288,7 +283,6 @@ export class MixedRouteWithValidQuote implements IMixedRouteWithValidQuote {
   public gasEstimate: BigNumber;
   public gasCostInToken: CurrencyAmount;
   public gasCostInUSD: CurrencyAmount;
-  public gasCostInGasToken?: CurrencyAmount;
   public tradeType: TradeType;
   public poolAddresses: string[];
   public tokenPath: Token[];
@@ -327,13 +321,12 @@ export class MixedRouteWithValidQuote implements IMixedRouteWithValidQuote {
     this.quoteToken = quoteToken;
     this.tradeType = tradeType;
 
-    const { gasEstimate, gasCostInToken, gasCostInUSD, gasCostInGasToken } =
+    const { gasEstimate, gasCostInToken, gasCostInUSD } =
       this.gasModel.estimateGasCost(this);
 
     this.gasCostInToken = gasCostInToken;
     this.gasCostInUSD = gasCostInUSD;
     this.gasEstimate = gasEstimate;
-    this.gasCostInGasToken = gasCostInGasToken;
 
     // If its exact out, we need to request *more* of the input token to account for the gas.
     if (this.tradeType == TradeType.EXACT_INPUT) {

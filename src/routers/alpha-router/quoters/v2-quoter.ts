@@ -1,6 +1,6 @@
+import { Protocol } from '@bulbaswap/router-sdk';
+import { ChainId, Currency, Token, TradeType } from '@bulbaswap/sdk-core';
 import { BigNumber } from '@ethersproject/bignumber';
-import { Protocol } from '@ququzone/router-sdk';
-import { ChainId, Currency, Token, TradeType } from '@ququzone/sdk-core';
 import _ from 'lodash';
 
 import {
@@ -30,10 +30,6 @@ import {
 import { IGasModel, IV2GasModelFactory } from '../gas-models';
 import { NATIVE_OVERHEAD } from '../gas-models/v3/gas-costs';
 
-import {
-  ArbitrumGasData,
-  IL2GasDataProvider,
-} from '../../../providers/v3/gas-data-provider';
 import { BaseQuoter } from './base-quoter';
 import { GetQuotesResult } from './model/results/get-quotes-result';
 import { GetRoutesResult } from './model/results/get-routes-result';
@@ -43,7 +39,6 @@ export class V2Quoter extends BaseQuoter<V2CandidatePools, V2Route> {
   protected v2PoolProvider: IV2PoolProvider;
   protected v2QuoteProvider: IV2QuoteProvider;
   protected v2GasModelFactory: IV2GasModelFactory;
-  protected l2GasDataProvider?: IL2GasDataProvider<ArbitrumGasData>;
 
   constructor(
     v2SubgraphProvider: IV2SubgraphProvider,
@@ -53,8 +48,7 @@ export class V2Quoter extends BaseQuoter<V2CandidatePools, V2Route> {
     tokenProvider: ITokenProvider,
     chainId: ChainId,
     blockedTokenListProvider?: ITokenListProvider,
-    tokenValidatorProvider?: ITokenValidatorProvider,
-    l2GasDataProvider?: IL2GasDataProvider<ArbitrumGasData>
+    tokenValidatorProvider?: ITokenValidatorProvider
   ) {
     super(
       tokenProvider,
@@ -67,7 +61,6 @@ export class V2Quoter extends BaseQuoter<V2CandidatePools, V2Route> {
     this.v2PoolProvider = v2PoolProvider;
     this.v2QuoteProvider = v2QuoteProvider;
     this.v2GasModelFactory = v2GasModelFactory;
-    this.l2GasDataProvider = l2GasDataProvider;
   }
 
   protected async getRoutes(
@@ -149,21 +142,11 @@ export class V2Quoter extends BaseQuoter<V2CandidatePools, V2Route> {
       throw new Error('GasPriceWei for V2Routes is required to getQuotes');
     }
     // throw if we have no amounts or if there are different tokens in the amounts
-    if (
-      amounts.length == 0 ||
-      !amounts.every((amount) => amount.currency.equals(amounts[0]!.currency))
-    ) {
-      throw new Error(
-        'Amounts must have at least one amount and must be same token'
-      );
+    if (amounts.length == 0 || !amounts.every((amount) => amount.currency.equals(amounts[0]!.currency))) {
+      throw new Error('Amounts must have at least one amount and must be same token');
     }
     // safe to force unwrap here because we throw if there are no amounts
     const amountToken = amounts[0]!.currency;
-    const gasToken = _routingConfig.gasToken
-      ? (
-        await this.tokenProvider.getTokens([_routingConfig.gasToken])
-      ).getTokenByAddress(_routingConfig.gasToken)
-      : undefined;
 
     if (routes.length == 0) {
       return { routesWithValidQuotes: [], candidatePools };
@@ -187,15 +170,9 @@ export class V2Quoter extends BaseQuoter<V2CandidatePools, V2Route> {
       gasPriceWei,
       poolProvider: this.v2PoolProvider,
       token: quoteToken,
-      l2GasDataProvider: this.l2GasDataProvider,
       providerConfig: {
         ..._routingConfig,
-        additionalGasOverhead: NATIVE_OVERHEAD(
-          this.chainId,
-          amountToken,
-          quoteToken
-        ),
-        gasToken,
+        additionalGasOverhead: NATIVE_OVERHEAD(this.chainId, amountToken, quoteToken)
       },
     });
 
