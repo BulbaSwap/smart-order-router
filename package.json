@@ -1,6 +1,6 @@
 {
   "name": "@bulbaswap/smart-order-router",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Bulbaswap Smart Order Router",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -33,8 +33,8 @@
   "dependencies": {
     "@bulbaswap/permit2-sdk": "^1.0.8",
     "@bulbaswap/router-sdk": "^1.0.9",
-    "@bulbaswap/sdk-core": "^1.0.12",
-    "@bulbaswap/universal-router-sdk": "^1.0.12",
+    "@bulbaswap/sdk-core": "^1.0.13",
+    "@bulbaswap/universal-router-sdk": "^1.0.13",
     "@bulbaswap/v2-sdk": "^1.0.10",
     "@bulbaswap/v3-sdk": "^1.0.10",
     "@uniswap/default-token-list": "^11.2.0",
