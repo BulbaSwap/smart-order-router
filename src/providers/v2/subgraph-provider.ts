@@ -39,7 +39,7 @@ const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
   [ChainId.MAINNET]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v2-dev',
   [ChainId.HOLESKY]:
-    'https://api.goldsky.com/api/public/project_cly6zqxwr6p4o011ddhk045by/subgraphs/bulbaswap-subgraph/v2-2.0.0/gn',
+    'https://api.goldsky.com/api/public/project_cly6zqxwr6p4o011ddhk045by/subgraphs/bulbaswap-subgraph/v2/gn',
 };
 
 const threshold = 0.025;

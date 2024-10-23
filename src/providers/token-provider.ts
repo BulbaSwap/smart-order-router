@@ -545,6 +545,14 @@ export const USDT_HOLESKY = new Token(
   'Tether USD'
 );
 
+export const USDT_MORPH = new Token(
+  ChainId.MORPH,
+  '0xc7D67A9cBB121b3b0b9c053DD9f469523243379A',
+  6,
+  'USDT',
+  'Tether USD'
+);
+
 export class TokenProvider implements ITokenProvider {
   constructor(
     private chainId: ChainId,
@@ -765,6 +773,8 @@ export const USDT_ON = (chainId: ChainId): Token => {
       return USDT_BNB;
     case ChainId.HOLESKY:
       return USDT_HOLESKY;
+    case ChainId.MORPH:
+      return USDT_MORPH;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }

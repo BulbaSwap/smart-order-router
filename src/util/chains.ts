@@ -17,6 +17,7 @@ export const SUPPORTED_CHAINS: ChainId[] = [
   ChainId.AVALANCHE,
   ChainId.BASE,
   ChainId.HOLESKY,
+  ChainId.MORPH,
   // Gnosis and Moonbeam don't yet have contracts deployed yet
 ];
 
@@ -25,6 +26,7 @@ export const V2_SUPPORTED = [
   ChainId.GOERLI,
   ChainId.SEPOLIA,
   ChainId.HOLESKY,
+  ChainId.MORPH,
 ];
 
 export const HAS_L1_FEE = [
@@ -83,6 +85,8 @@ export const ID_TO_CHAIN_ID = (id: number): ChainId => {
       return ChainId.BASE_GOERLI;
     case 2810:
       return ChainId.HOLESKY;
+    case 2818:
+      return ChainId.MORPH;
     default:
       throw new Error(`Unknown chain id: ${id}`);
   }
@@ -107,6 +111,7 @@ export enum ChainName {
   BASE = 'base-mainnet',
   BASE_GOERLI = 'base-goerli',
   HOLESKY = 'morph-testnet',
+  MORPH = 'morph-mainnet',
 }
 
 
@@ -188,6 +193,11 @@ export const NATIVE_NAMES_BY_ID: { [chainId: number]: string[] } = {
     'ETHER',
     '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
   ],
+  [ChainId.MORPH]: [
+    'ETH',
+    'ETHER',
+    '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+  ],
 };
 
 export const NATIVE_CURRENCY: { [chainId: number]: NativeCurrencyName } = {
@@ -208,6 +218,7 @@ export const NATIVE_CURRENCY: { [chainId: number]: NativeCurrencyName } = {
   [ChainId.AVALANCHE]: NativeCurrencyName.AVALANCHE,
   [ChainId.BASE]: NativeCurrencyName.ETHER,
   [ChainId.HOLESKY]: NativeCurrencyName.ETHER,
+  [ChainId.MORPH]: NativeCurrencyName.ETHER,
 };
 
 export const ID_TO_NETWORK_NAME = (id: number): ChainName => {
@@ -248,6 +259,8 @@ export const ID_TO_NETWORK_NAME = (id: number): ChainName => {
       return ChainName.BASE_GOERLI;
     case 2810:
       return ChainName.HOLESKY;
+    case 2818:
+      return ChainName.MORPH;
     default:
       throw new Error(`Unknown chain id: ${id}`);
   }
@@ -289,6 +302,8 @@ export const ID_TO_PROVIDER = (id: ChainId): string => {
       return process.env.JSON_RPC_PROVIDER_BASE!;
     case ChainId.HOLESKY:
       return process.env.JSON_RPC_PROVIDER_HOLESKY!;
+    case ChainId.MORPH:
+      return process.env.JSON_RPC_PROVIDER_MORPH!;
     default:
       throw new Error(`Chain id: ${id} not supported`);
   }
@@ -418,6 +433,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId in ChainId]: Token } = {
   ),
   [ChainId.HOLESKY]: new Token(
     ChainId.HOLESKY,
+    '0x5300000000000000000000000000000000000011',
+    18,
+    'WETH',
+    'Wrapped Ether'
+  ),
+  [ChainId.MORPH]: new Token(
+    ChainId.MORPH,
     '0x5300000000000000000000000000000000000011',
     18,
     'WETH',

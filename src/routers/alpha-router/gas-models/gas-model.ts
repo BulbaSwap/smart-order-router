@@ -36,6 +36,7 @@ import {
   USDT_OPTIMISM,
   USDT_OPTIMISM_GOERLI,
   WBTC_GOERLI,
+  USDT_MORPH
 } from '../../../providers/token-provider';
 import { IV2PoolProvider } from '../../../providers/v2/pool-provider';
 import {
@@ -76,6 +77,7 @@ export const usdGasTokensByChain: { [chainId in ChainId]?: Token[] } = {
   [ChainId.AVALANCHE]: [DAI_AVAX, USDC_AVAX],
   [ChainId.BASE]: [USDC_BASE],
   [ChainId.HOLESKY]: [USDT_HOLESKY],
+  [ChainId.MORPH]: [USDT_MORPH],
 };
 
 export type L1ToL2GasCosts = {
@@ -92,8 +94,8 @@ export type BuildOnChainGasModelFactoryType = {
   quoteToken: Token;
   v2poolProvider: IV2PoolProvider;
   l2GasDataProvider?:
-    | IL2GasDataProvider<OptimismGasData>
-    | IL2GasDataProvider<ArbitrumGasData>;
+  | IL2GasDataProvider<OptimismGasData>
+  | IL2GasDataProvider<ArbitrumGasData>;
   providerConfig?: ProviderConfig;
 };
 

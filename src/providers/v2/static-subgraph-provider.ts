@@ -38,7 +38,8 @@ import {
   WBTC_MOONBEAM,
   WBTC_OPTIMISM,
   WETH_POLYGON,
-  WMATIC_POLYGON
+  WMATIC_POLYGON,
+  USDT_MORPH
 } from '../token-provider';
 
 import { IV2SubgraphProvider, V2SubgraphPool } from './subgraph-provider';
@@ -111,6 +112,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!],
   [ChainId.ZKSYNC]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZKSYNC]!],
   [ChainId.HOLESKY]: [WRAPPED_NATIVE_CURRENCY[ChainId.HOLESKY]!, USDT_HOLESKY],
+  [ChainId.MORPH]: [WRAPPED_NATIVE_CURRENCY[ChainId.MORPH]!, USDT_MORPH],
 };
 
 /**
