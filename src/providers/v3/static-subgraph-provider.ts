@@ -49,6 +49,7 @@ import {
   USDT_GOERLI,
   USDT_HOLESKY,
   USDT_MAINNET,
+  USDT_MORPH,
   USDT_OPTIMISM,
   USDT_OPTIMISM_GOERLI,
   WBTC_ARBITRUM,
@@ -61,8 +62,7 @@ import {
   WETH_POLYGON,
   WMATIC_POLYGON,
   WMATIC_POLYGON_MUMBAI,
-  WXDAI_GNOSIS,
-  USDT_MORPH
+  WXDAI_GNOSIS
 } from '../token-provider';
 
 import { IV3PoolProvider } from './pool-provider';

@@ -32,14 +32,14 @@ import {
   USDT_BNB,
   USDT_HOLESKY,
   USDT_MAINNET,
+  USDT_MORPH,
   USDT_OPTIMISM,
   WBTC_ARBITRUM,
   WBTC_MAINNET,
   WBTC_MOONBEAM,
   WBTC_OPTIMISM,
   WETH_POLYGON,
-  WMATIC_POLYGON,
-  USDT_MORPH
+  WMATIC_POLYGON
 } from '../token-provider';
 
 import { IV2SubgraphProvider, V2SubgraphPool } from './subgraph-provider';

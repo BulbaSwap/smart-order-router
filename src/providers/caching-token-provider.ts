@@ -41,6 +41,7 @@ import {
   USDT_BNB,
   USDT_HOLESKY,
   USDT_MAINNET,
+  USDT_MORPH,
   USDT_OPTIMISM,
   USDT_OPTIMISM_GOERLI,
   WBTC_ARBITRUM,
@@ -50,7 +51,6 @@ import {
   WBTC_OPTIMISM_GOERLI,
   WMATIC_POLYGON,
   WMATIC_POLYGON_MUMBAI,
-  USDT_MORPH,
 } from './token-provider';
 
 // These tokens will added to the Token cache on initialization.

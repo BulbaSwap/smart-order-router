@@ -33,10 +33,10 @@ import {
   USDT_GOERLI,
   USDT_HOLESKY,
   USDT_MAINNET,
+  USDT_MORPH,
   USDT_OPTIMISM,
   USDT_OPTIMISM_GOERLI,
-  WBTC_GOERLI,
-  USDT_MORPH
+  WBTC_GOERLI
 } from '../../../providers/token-provider';
 import { IV2PoolProvider } from '../../../providers/v2/pool-provider';
 import {
