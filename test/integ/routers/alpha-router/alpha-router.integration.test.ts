@@ -70,6 +70,7 @@ import {
   USDC_ON,
   USDT_BNB,
   USDT_MAINNET,
+  USDT_ON,
   V2_SUPPORTED,
   V2PoolProvider,
   V2Route,
@@ -200,13 +201,13 @@ describe('alpha router integration', () => {
   let customAlphaRouter: AlphaRouter;
   let feeOnTransferAlphaRouter: AlphaRouter;
   const multicall2Provider = new UniswapMulticallProvider(
-    ChainId.MAINNET,
+    ChainId.HOLESKY,
     hardhat.provider
   );
 
   const ROUTING_CONFIG: AlphaRouterConfig = {
     // @ts-ignore[TS7053] - complaining about switch being non exhaustive
-    ...DEFAULT_ROUTING_CONFIG_BY_CHAIN[ChainId.MAINNET],
+    ...DEFAULT_ROUTING_CONFIG_BY_CHAIN[ChainId.HOLESKY],
     protocols: [Protocol.V3, Protocol.V2],
     saveTenderlySimulationIfFailed: true, // save tenderly simulation on integ-test runs, easier for debugging
   };
@@ -601,33 +602,33 @@ describe('alpha router integration', () => {
     expect(aliceBULLETBalance).toEqual(parseAmount('735871', BULLET))
 
     const v3PoolProvider = new CachingV3PoolProvider(
-      ChainId.MAINNET,
-      new V3PoolProvider(ChainId.MAINNET, multicall2Provider),
+      ChainId.HOLESKY,
+      new V3PoolProvider(ChainId.HOLESKY, multicall2Provider),
       new NodeJSCache(new NodeCache({ stdTTL: 360, useClones: false }))
     );
     const tokenFeeFetcher = new OnChainTokenFeeFetcher(
-      ChainId.MAINNET,
+      ChainId.HOLESKY,
       hardhat.provider
     )
     const tokenPropertiesProvider = new TokenPropertiesProvider(
-      ChainId.MAINNET,
+      ChainId.HOLESKY,
       new NodeJSCache(new NodeCache({ stdTTL: 360, useClones: false })),
       tokenFeeFetcher
     )
     const v2PoolProvider = new V2PoolProvider(
-      ChainId.MAINNET,
+      ChainId.HOLESKY,
       multicall2Provider,
       tokenPropertiesProvider
     );
     const cachingV2PoolProvider = new CachingV2PoolProvider(
-      ChainId.MAINNET,
+      ChainId.HOLESKY,
       v2PoolProvider,
       new NodeJSCache(new NodeCache({ stdTTL: 360, useClones: false }))
     )
 
     const portionProvider = new PortionProvider();
     const ethEstimateGasSimulator = new EthEstimateGasSimulator(
-      ChainId.MAINNET,
+      ChainId.HOLESKY,
       hardhat.providers[0]!,
       v2PoolProvider,
       v3PoolProvider,
@@ -635,7 +636,7 @@ describe('alpha router integration', () => {
     );
 
     const tenderlySimulator = new TenderlySimulator(
-      ChainId.MAINNET,
+      ChainId.HOLESKY,
       process.env.TENDERLY_BASE_URL!,
       process.env.TENDERLY_USER!,
       process.env.TENDERLY_PROJECT!,
@@ -647,7 +648,7 @@ describe('alpha router integration', () => {
     );
 
     const simulator = new FallbackTenderlySimulator(
-      ChainId.MAINNET,
+      ChainId.HOLESKY,
       hardhat.providers[0]!,
       new PortionProvider(),
       tenderlySimulator,
@@ -655,7 +656,7 @@ describe('alpha router integration', () => {
     );
 
     alphaRouter = new AlphaRouter({
-      chainId: ChainId.MAINNET,
+      chainId: ChainId.HOLESKY,
       provider: hardhat.providers[0]!,
       multicall2Provider,
       v2PoolProvider,
@@ -666,7 +667,7 @@ describe('alpha router integration', () => {
     // this will be used to test gas limit simulation for web flow
     // in the web flow, we won't simulate on tenderly, only through eth estimate gas
     customAlphaRouter = new AlphaRouter({
-      chainId: ChainId.MAINNET,
+      chainId: ChainId.HOLESKY,
       provider: hardhat.providers[0]!,
       multicall2Provider,
       v2PoolProvider,
@@ -675,7 +676,7 @@ describe('alpha router integration', () => {
     });
 
     feeOnTransferAlphaRouter = new AlphaRouter({
-      chainId: ChainId.MAINNET,
+      chainId: ChainId.HOLESKY,
       provider: hardhat.providers[0]!,
       multicall2Provider,
       v2PoolProvider: cachingV2PoolProvider,
@@ -736,7 +737,7 @@ describe('alpha router integration', () => {
         it('erc20 -> erc20 works when symbol is returning bytes32', async () => {
           // This token has a bytes32 symbol type
           const tokenIn = new Token(
-            ChainId.MAINNET,
+            ChainId.HOLESKY,
             '0x0d88ed6e74bbfd96b831231638b66c05571e824f',
             18,
             'AVT',
@@ -2532,15 +2533,15 @@ describe('alpha router integration', () => {
           // FOT swap only works for exact in
           if (tradeType === TradeType.EXACT_INPUT) {
             const tokenInAndTokenOut = [
-              [BULLET_WITHOUT_TAX, WETH9[ChainId.MAINNET]!],
-              [WETH9[ChainId.MAINNET]!, BULLET_WITHOUT_TAX],
+              [BULLET_WITHOUT_TAX, WETH9[ChainId.HOLESKY]!],
+              [WETH9[ChainId.HOLESKY]!, BULLET_WITHOUT_TAX],
             ]
 
             tokenInAndTokenOut.forEach(([tokenIn, tokenOut]) => {
               it(`fee-on-transfer ${tokenIn?.symbol} -> ${tokenOut?.symbol}`, async () => {
                 const enableFeeOnTransferFeeFetching = [true, false, undefined]
                 // we want to swap the tokenIn/tokenOut order so that we can test both sellFeeBps and buyFeeBps for exactIn vs exactOut
-                const originalAmount = tokenIn?.equals(WETH9[ChainId.MAINNET]!) ? '10' : '2924'
+                const originalAmount = tokenIn?.equals(WETH9[ChainId.HOLESKY]!) ? '10' : '2924'
                 const amount = parseAmount(originalAmount, tokenIn!);
 
                 // Parallelize the FOT quote requests, because we notice there might be tricky race condition that could cause quote to not include FOT tax
@@ -2674,7 +2675,7 @@ describe('alpha router integration', () => {
                     const checkTokenOutAmount = parseFloat(amount.toFixed(0))
 
                     // We don't have a bullet proof way to asser the fot-involved quote is post tax
-                    // so the best way is to execute the swap on hardhat mainnet fork,
+                    // so the best way is to execute the swap on hardhat HOLESKY fork,
                     // and make sure the executed quote doesn't differ from callstatic simulated quote by over slippage tolerance
                     await validateExecuteSwap(
                       SwapType.UNIVERSAL_ROUTER,
@@ -2920,7 +2921,7 @@ describe('alpha router integration', () => {
 
 describe('external class tests', () => {
   const multicall2Provider = new UniswapMulticallProvider(
-    ChainId.MAINNET,
+    ChainId.HOLESKY,
     hardhat.provider
   );
   const onChainQuoteProvider = new OnChainQuoteProvider(
@@ -3049,6 +3050,13 @@ describe('external class tests', () => {
 describe('quote for other networks', () => {
   const TEST_ERC20_1: { [chainId in ChainId]: () => Token } = {
     [ChainId.MAINNET]: () => USDC_ON(ChainId.MAINNET),
+    [ChainId.OPTIMISM_SEPOLIA]: () => USDC_ON(ChainId.OPTIMISM_SEPOLIA),
+    [ChainId.ARBITRUM_SEPOLIA]: () => USDC_ON(ChainId.ARBITRUM_SEPOLIA),
+    [ChainId.ZORA]: () => USDC_ON(ChainId.ZORA),
+    [ChainId.ROOTSTOCK]: () => USDC_ON(ChainId.ROOTSTOCK),
+    [ChainId.ZKSYNC]: () => USDC_ON(ChainId.ZKSYNC),
+    [ChainId.BLAST]: () => USDC_ON(ChainId.BLAST),
+    [ChainId.ZORA_SEPOLIA]: () => USDC_ON(ChainId.ZORA_SEPOLIA),
     [ChainId.GOERLI]: () => UNI_GOERLI,
     [ChainId.SEPOLIA]: () => USDC_ON(ChainId.SEPOLIA),
     [ChainId.OPTIMISM]: () => USDC_ON(ChainId.OPTIMISM),
@@ -3065,9 +3073,18 @@ describe('quote for other networks', () => {
     [ChainId.AVALANCHE]: () => USDC_ON(ChainId.AVALANCHE),
     [ChainId.BASE]: () => USDC_ON(ChainId.BASE),
     [ChainId.BASE_GOERLI]: () => USDC_ON(ChainId.BASE_GOERLI),
+    [ChainId.HOLESKY]: () => USDC_ON(ChainId.HOLESKY),
+    [ChainId.MORPH]: () => USDT_ON(ChainId.MORPH),
   };
   const TEST_ERC20_2: { [chainId in ChainId]: () => Token } = {
-    [ChainId.MAINNET]: () => DAI_ON(1),
+    [ChainId.MAINNET]: () => DAI_ON(ChainId.MAINNET),
+    [ChainId.OPTIMISM_SEPOLIA]: () => DAI_ON(ChainId.OPTIMISM_SEPOLIA),
+    [ChainId.ARBITRUM_SEPOLIA]: () => DAI_ON(ChainId.ARBITRUM_SEPOLIA),
+    [ChainId.ZORA]: () => DAI_ON(ChainId.ZORA),
+    [ChainId.ROOTSTOCK]: () => DAI_ON(ChainId.ROOTSTOCK),
+    [ChainId.ZKSYNC]: () => DAI_ON(ChainId.ZKSYNC),
+    [ChainId.BLAST]: () => DAI_ON(ChainId.BLAST),
+    [ChainId.ZORA_SEPOLIA]: () => DAI_ON(ChainId.ZORA_SEPOLIA),
     [ChainId.GOERLI]: () => DAI_ON(ChainId.GOERLI),
     [ChainId.SEPOLIA]: () => DAI_ON(ChainId.SEPOLIA),
     [ChainId.OPTIMISM]: () => DAI_ON(ChainId.OPTIMISM),
@@ -3084,18 +3101,20 @@ describe('quote for other networks', () => {
     [ChainId.AVALANCHE]: () => DAI_ON(ChainId.AVALANCHE),
     [ChainId.BASE]: () => WNATIVE_ON(ChainId.BASE),
     [ChainId.BASE_GOERLI]: () => WNATIVE_ON(ChainId.BASE_GOERLI),
+    [ChainId.HOLESKY]: () => USDT_ON(ChainId.HOLESKY),
+    [ChainId.MORPH]: () => USDT_ON(ChainId.MORPH),
   };
 
   // TODO: Find valid pools/tokens on optimistic kovan and polygon mumbai. We skip those tests for now.
   for (const chain of _.filter(
     SUPPORTED_CHAINS,
     (c) =>
-      c != ChainId.OPTIMISM_GOERLI &&
-      c != ChainId.POLYGON_MUMBAI &&
-      c != ChainId.ARBITRUM_GOERLI &&
-      // Tests are failing https://github.com/Uniswap/smart-order-router/issues/104
-      c != ChainId.CELO_ALFAJORES &&
-      c != ChainId.SEPOLIA
+      c == ChainId.HOLESKY
+    // c != ChainId.POLYGON_MUMBAI &&
+    // c != ChainId.ARBITRUM_GOERLI &&
+    // // Tests are failing https://github.com/Uniswap/smart-order-router/issues/104
+    // c != ChainId.CELO_ALFAJORES &&
+    // c != ChainId.SEPOLIA
   )) {
     for (const tradeType of [TradeType.EXACT_INPUT, TradeType.EXACT_OUTPUT]) {
       const erc1 = TEST_ERC20_1[chain]();
@@ -3109,6 +3128,7 @@ describe('quote for other networks', () => {
         beforeAll(async () => {
           const chainProvider = ID_TO_PROVIDER(chain);
           const provider = new JsonRpcProvider(chainProvider, chain);
+          console.log('provider: ', provider)
 
           const multicall2Provider = new UniswapMulticallProvider(
             chain,
@@ -3121,11 +3141,11 @@ describe('quote for other networks', () => {
             new NodeJSCache(new NodeCache({ stdTTL: 360, useClones: false }))
           );
           const tokenFeeFetcher = new OnChainTokenFeeFetcher(
-            ChainId.MAINNET,
+            ChainId.HOLESKY,
             hardhat.provider
           )
           const tokenPropertiesProvider = new TokenPropertiesProvider(
-            ChainId.MAINNET,
+            ChainId.HOLESKY,
             new NodeJSCache(new NodeCache({ stdTTL: 360, useClones: false })),
             tokenFeeFetcher
           )
@@ -3191,7 +3211,7 @@ describe('quote for other networks', () => {
             expect(swap).toBeDefined();
             expect(swap).not.toBeNull();
 
-            // Scope limited for non mainnet network tests to validating the swap
+            // Scope limited for non HOLESKY network tests to validating the swap
           });
 
           it(`erc20 -> erc20`, async () => {
@@ -3392,7 +3412,7 @@ describe('quote for other networks', () => {
                 );
               }
 
-              // Scope limited for non mainnet network tests to validating the swap
+              // Scope limited for non HOLESKY network tests to validating the swap
             });
 
             it(`erc20 -> erc20`, async () => {

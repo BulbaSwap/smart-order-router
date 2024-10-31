@@ -537,12 +537,29 @@ export const WBTC_MOONBEAM = new Token(
   'WBTC',
   'Wrapped BTC bridged using Multichain'
 );
+
+export const WBTC_HOLESKY = new Token(
+  ChainId.HOLESKY,
+  '0x9D775125AFeDc37c46441eADC90140FC2E0d88ac',
+  8,
+  'WBTC',
+  'Wrapped BTC'
+);
+
 export const USDT_HOLESKY = new Token(
   ChainId.HOLESKY,
   '0x67330f6BC8dcE05816662785A89fb0611F6D149F',
   6,
   'USDT',
   'Tether USD'
+);
+
+export const USDC_HOLESKY = new Token(
+  ChainId.HOLESKY,
+  '0x6dd7917d2558b88d7a4cb75ccbc05b83ee73ec0e',
+  6,
+  'USDC',
+  'USD Coin'
 );
 
 export const USDT_MORPH = new Token(
@@ -812,6 +829,8 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_BASE;
     case ChainId.BASE_GOERLI:
       return USDC_BASE_GOERLI;
+    case ChainId.HOLESKY:
+      return USDC_HOLESKY;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
