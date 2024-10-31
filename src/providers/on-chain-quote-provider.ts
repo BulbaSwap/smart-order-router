@@ -519,7 +519,6 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                   } as QuoteBatchFailed;
                 }
 
-                log.debug('err.message.slice(0, 500): ', err.message.slice(0, 500));
                 if (err.message.includes('out of gas')) {
                   return {
                     status: 'failed',
