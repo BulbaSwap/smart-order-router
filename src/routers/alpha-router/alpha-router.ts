@@ -556,6 +556,8 @@ export class AlphaRouter
           break;
         case ChainId.CELO:
         case ChainId.CELO_ALFAJORES:
+        case ChainId.HOLESKY:
+        case ChainId.MORPH:
           this.onChainQuoteProvider = new OnChainQuoteProvider(
             chainId,
             provider,
