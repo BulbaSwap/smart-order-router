@@ -16,9 +16,7 @@ import {
   CachingGasStationProvider,
   CachingTokenProviderWithFallback,
   CachingV2PoolProvider,
-  CachingV2SubgraphProvider,
   CachingV3PoolProvider,
-  CachingV3SubgraphProvider,
   EIP1559GasPriceProvider,
   ETHGasStationInfoProvider,
   IOnChainQuoteProvider,
@@ -37,7 +35,6 @@ import {
   SwapRouterProvider,
   TokenPropertiesProvider,
   UniswapMulticallProvider,
-  URISubgraphProvider,
   V2QuoteProvider,
   V2SubgraphProviderWithFallBacks,
   V3SubgraphProviderWithFallBacks
@@ -556,8 +553,6 @@ export class AlphaRouter
           break;
         case ChainId.CELO:
         case ChainId.CELO_ALFAJORES:
-        case ChainId.HOLESKY:
-        case ChainId.MORPH:
           this.onChainQuoteProvider = new OnChainQuoteProvider(
             chainId,
             provider,
@@ -655,23 +650,11 @@ export class AlphaRouter
       );
     this.portionProvider = portionProvider ?? new PortionProvider();
 
-    const chainName = ID_TO_NETWORK_NAME(chainId);
-
     // ipfs urls in the following format: `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/${protocol}/${chainName}.json`;
     if (v2SubgraphProvider) {
       this.v2SubgraphProvider = v2SubgraphProvider;
     } else {
       this.v2SubgraphProvider = new V2SubgraphProviderWithFallBacks([
-        new CachingV2SubgraphProvider(
-          chainId,
-          new URISubgraphProvider(
-            chainId,
-            `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v2/${chainName}.json`,
-            undefined,
-            0
-          ),
-          new NodeJSCache(new NodeCache({ stdTTL: 300, useClones: false }))
-        ),
         new StaticV2SubgraphProvider(chainId),
       ]);
     }
@@ -680,16 +663,6 @@ export class AlphaRouter
       this.v3SubgraphProvider = v3SubgraphProvider;
     } else {
       this.v3SubgraphProvider = new V3SubgraphProviderWithFallBacks([
-        new CachingV3SubgraphProvider(
-          chainId,
-          new URISubgraphProvider(
-            chainId,
-            `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v3/${chainName}.json`,
-            undefined,
-            0
-          ),
-          new NodeJSCache(new NodeCache({ stdTTL: 300, useClones: false }))
-        ),
         new StaticV3SubgraphProvider(chainId, this.v3PoolProvider),
       ]);
     }
@@ -1552,7 +1525,7 @@ export class AlphaRouter
     const v2ProtocolSpecified = protocols.includes(Protocol.V2);
     const v2SupportedInChain = V2_SUPPORTED.includes(this.chainId);
     const shouldQueryMixedProtocol = protocols.includes(Protocol.MIXED) || (noProtocolsSpecified && v2SupportedInChain);
-    const mixedProtocolAllowed = [ChainId.MAINNET, ChainId.GOERLI, ChainId.HOLESKY, ChainId.MORPH].includes(this.chainId) &&
+    const mixedProtocolAllowed = [ChainId.MAINNET, ChainId.GOERLI, ChainId.HOLESKY].includes(this.chainId) &&
       tradeType === TradeType.EXACT_INPUT;
 
     const beforeGetCandidates = Date.now();
