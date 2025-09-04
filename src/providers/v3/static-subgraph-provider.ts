@@ -10,6 +10,7 @@ import { log } from '../../util/log';
 import { ProviderConfig } from '../provider';
 import {
   ARB_ARBITRUM,
+  BGB_MORPH,
   BTC_BNB,
   BUSD_BNB,
   CELO,
@@ -157,7 +158,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.BASE_GOERLI]: [WRAPPED_NATIVE_CURRENCY[ChainId.BASE_GOERLI]],
   [ChainId.BASE]: [WRAPPED_NATIVE_CURRENCY[ChainId.BASE], USDC_BASE],
   [ChainId.HOLESKY]: [WRAPPED_NATIVE_CURRENCY[ChainId.HOLESKY]!, USDT_HOLESKY],
-  [ChainId.MORPH]: [WRAPPED_NATIVE_CURRENCY[ChainId.MORPH]!, USDT_MORPH],
+  [ChainId.MORPH]: [WRAPPED_NATIVE_CURRENCY[ChainId.MORPH]!, USDT_MORPH, BGB_MORPH],
   [ChainId.OPTIMISM_SEPOLIA]: [],
   [ChainId.ARBITRUM_SEPOLIA]: [],
   [ChainId.ZORA]: [],

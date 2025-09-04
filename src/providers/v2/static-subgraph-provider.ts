@@ -6,6 +6,7 @@ import { WRAPPED_NATIVE_CURRENCY } from '../../util/chains';
 import { log } from '../../util/log';
 import {
   ARB_ARBITRUM,
+  BGB_MORPH,
   BTC_BNB,
   BUSD_BNB,
   CELO,
@@ -112,7 +113,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!],
   [ChainId.ZKSYNC]: [WRAPPED_NATIVE_CURRENCY[ChainId.ZKSYNC]!],
   [ChainId.HOLESKY]: [WRAPPED_NATIVE_CURRENCY[ChainId.HOLESKY]!, USDT_HOLESKY],
-  [ChainId.MORPH]: [WRAPPED_NATIVE_CURRENCY[ChainId.MORPH]!, USDT_MORPH],
+  [ChainId.MORPH]: [WRAPPED_NATIVE_CURRENCY[ChainId.MORPH]!, USDT_MORPH, BGB_MORPH],
 };
 
 /**

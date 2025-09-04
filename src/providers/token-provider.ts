@@ -570,6 +570,14 @@ export const USDT_MORPH = new Token(
   'Tether USD'
 );
 
+export const BGB_MORPH = new Token(
+  ChainId.MORPH,
+  '0x55d1f1879969bdbb9960d269974564c58dbc3238',
+  18,
+  'BGB',
+  'BitgetToken'
+);
+
 export class TokenProvider implements ITokenProvider {
   constructor(
     private chainId: ChainId,
