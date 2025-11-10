@@ -177,7 +177,7 @@ export async function getHighestLiquidityV3USDPool(
 export function getGasCostInUSD(
   usdPool: Pool,
   costNativeCurrency: CurrencyAmount<Token>
-) {
+): CurrencyAmount<Token> {
   const nativeCurrency = costNativeCurrency.currency;
   // convert fee into usd
   const nativeTokenPrice =
@@ -205,7 +205,7 @@ export async function getGasCostInQuoteToken(
   quoteToken: Token,
   nativePool: Pool | Pair,
   costNativeCurrency: CurrencyAmount<Token>
-) {
+): Promise<CurrencyAmount<Token>> {
   const nativeTokenPrice =
     nativePool.token0.address == quoteToken.address
       ? nativePool.token1Price
@@ -270,7 +270,11 @@ export async function calculateGasUsed(
   v3PoolProvider: IV3PoolProvider,
   l2GasData?: ArbitrumGasData | OptimismGasData,
   providerConfig?: ProviderConfig
-) {
+): Promise<{
+  estimatedGasUsedUSD: CurrencyAmount<Token>;
+  estimatedGasUsedQuoteToken: CurrencyAmount<Token>;
+  quoteGasAdjusted: CurrencyAmount<Currency>;
+}> {
   const quoteToken = route.quote.currency.wrapped;
   const gasPriceWei = route.gasPriceWei;
   // calculate L2 to L1 security fee if relevant
@@ -457,10 +461,10 @@ export function initSwapRouteFromExisting(
 
   const quoteGasAndPortionAdjusted = swapRoute.portionAmount
     ? portionProvider.getQuoteGasAndPortionAdjusted(
-        swapRoute.trade.tradeType,
-        quoteGasAdjusted,
-        swapRoute.portionAmount
-      )
+      swapRoute.trade.tradeType,
+      quoteGasAdjusted,
+      swapRoute.portionAmount
+    )
     : undefined;
   const routesWithValidQuotePortionAdjusted =
     portionProvider.getRouteWithQuotePortionAdjusted(
@@ -482,10 +486,10 @@ export function initSwapRouteFromExisting(
     blockNumber: BigNumber.from(swapRoute.blockNumber),
     methodParameters: swapRoute.methodParameters
       ? ({
-          calldata: swapRoute.methodParameters.calldata,
-          value: swapRoute.methodParameters.value,
-          to: swapRoute.methodParameters.to,
-        } as MethodParameters)
+        calldata: swapRoute.methodParameters.calldata,
+        value: swapRoute.methodParameters.value,
+        to: swapRoute.methodParameters.to,
+      } as MethodParameters)
       : undefined,
     simulationStatus: swapRoute.simulationStatus,
     portionAmount: swapRoute.portionAmount,
