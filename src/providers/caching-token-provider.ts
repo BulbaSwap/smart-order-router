@@ -5,6 +5,7 @@ import { log, WRAPPED_NATIVE_CURRENCY } from '../util';
 
 import { ICache } from './cache';
 import {
+  BGB_MORPH,
   BTC_BNB,
   BUSD_BNB,
   CELO,
@@ -31,8 +32,10 @@ import {
   USDC_BASE,
   USDC_BNB,
   USDC_ETHEREUM_GNOSIS,
+  USDC_HOODI,
   USDC_MAINNET,
   USDC_MOONBEAM,
+  USDC_MORPH,
   USDC_OPTIMISM,
   USDC_OPTIMISM_GOERLI,
   USDC_POLYGON,
@@ -40,6 +43,7 @@ import {
   USDT_ARBITRUM,
   USDT_BNB,
   USDT_HOLESKY,
+  USDT_HOODI,
   USDT_MAINNET,
   USDT_MORPH,
   USDT_OPTIMISM,
@@ -150,9 +154,15 @@ export const CACHE_SEED_TOKENS: {
     WETH: WRAPPED_NATIVE_CURRENCY[ChainId.HOLESKY],
     USDT: USDT_HOLESKY,
   },
+  [ChainId.HOODI]: {
+    USDT: USDT_HOODI,
+    USDC: USDC_HOODI,
+  },
   [ChainId.MORPH]: {
     WETH: WRAPPED_NATIVE_CURRENCY[ChainId.MORPH],
     USDT: USDT_MORPH,
+    USDC: USDC_MORPH,
+    BGB: BGB_MORPH,
   },
   // Currently we do not have providers for Moonbeam mainnet or Gnosis testnet
 };

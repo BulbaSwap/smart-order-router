@@ -554,6 +554,7 @@ export class AlphaRouter
         case ChainId.CELO:
         case ChainId.CELO_ALFAJORES:
         case ChainId.HOLESKY:
+        case ChainId.HOODI:
         case ChainId.MORPH:
           this.onChainQuoteProvider = new OnChainQuoteProvider(
             chainId,
@@ -1527,7 +1528,7 @@ export class AlphaRouter
     const v2ProtocolSpecified = protocols.includes(Protocol.V2);
     const v2SupportedInChain = V2_SUPPORTED.includes(this.chainId);
     const shouldQueryMixedProtocol = protocols.includes(Protocol.MIXED) || (noProtocolsSpecified && v2SupportedInChain);
-    const mixedProtocolAllowed = [ChainId.MAINNET, ChainId.GOERLI, ChainId.HOLESKY, ChainId.MORPH].includes(this.chainId) &&
+    const mixedProtocolAllowed = [ChainId.MAINNET, ChainId.GOERLI, ChainId.HOLESKY, ChainId.HOODI, ChainId.MORPH].includes(this.chainId) &&
       tradeType === TradeType.EXACT_INPUT;
 
     const beforeGetCandidates = Date.now();

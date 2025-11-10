@@ -562,6 +562,22 @@ export const USDC_HOLESKY = new Token(
   'USD Coin'
 );
 
+export const USDT_HOODI = new Token(
+  ChainId.HOODI,
+  '0xF48EFcDb83c8478528bDDe96f1B8c736BBF5BC87',
+  6,
+  'USDT',
+  'Tether USD'
+);
+
+export const USDC_HOODI = new Token(
+  ChainId.HOODI,
+  '0x1178341838B764dCfFA5BCEAb1d41443Fd71a227',
+  6,
+  'USDC',
+  'USD Coin'
+);
+
 export const USDT_MORPH = new Token(
   ChainId.MORPH,
   '0xc7D67A9cBB121b3b0b9c053DD9f469523243379A',
@@ -569,6 +585,14 @@ export const USDT_MORPH = new Token(
   'USDT',
   'Tether USD'
 );
+export const USDC_MORPH = new Token(
+  ChainId.MORPH,
+  '0xe34c91815d7fc18a9e2148bcd4241d0a5848b693',
+  6,
+  'USDC',
+  'USD Coin'
+);
+
 
 export const BGB_MORPH = new Token(
   ChainId.MORPH,
@@ -798,6 +822,8 @@ export const USDT_ON = (chainId: ChainId): Token => {
       return USDT_BNB;
     case ChainId.HOLESKY:
       return USDT_HOLESKY;
+    case ChainId.HOODI:
+      return USDT_HOODI;
     case ChainId.MORPH:
       return USDT_MORPH;
     default:
@@ -839,6 +865,10 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_BASE_GOERLI;
     case ChainId.HOLESKY:
       return USDC_HOLESKY;
+    case ChainId.HOODI:
+      return USDC_HOODI;
+    case ChainId.MORPH:
+      return USDC_MORPH;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }

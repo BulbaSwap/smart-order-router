@@ -32,6 +32,7 @@ import {
   USDT_BNB,
   USDT_GOERLI,
   USDT_HOLESKY,
+  USDT_HOODI,
   USDT_MAINNET,
   USDT_MORPH,
   USDT_OPTIMISM,
@@ -77,6 +78,7 @@ export const usdGasTokensByChain: { [chainId in ChainId]?: Token[] } = {
   [ChainId.AVALANCHE]: [DAI_AVAX, USDC_AVAX],
   [ChainId.BASE]: [USDC_BASE],
   [ChainId.HOLESKY]: [USDT_HOLESKY],
+  [ChainId.HOODI]: [USDT_HOODI],
   [ChainId.MORPH]: [USDT_MORPH],
 };
 

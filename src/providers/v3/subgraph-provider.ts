@@ -64,6 +64,7 @@ const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
   [ChainId.BASE]:
     'https://api.studio.thegraph.com/query/48211/uniswap-v3-base/version/latest',
   [ChainId.HOLESKY]: 'https://api.goldsky.com/api/public/project_cm1fyqxygiosl010merl65wvd/subgraphs/bulbaswap-subgraph/testnet-v3/gn',
+  [ChainId.HOODI]: 'https://api.goldsky.com/api/public/project_cm1fyqxygiosl010merl65wvd/subgraphs/bulbaswap-subgraph/testnet-v3/gn',
   [ChainId.MORPH]: 'https://api.goldsky.com/api/public/project_cm1fyqxygiosl010merl65wvd/subgraphs/bulbaswap-subgraph/mainnet-v3/gn',
 };
 

@@ -17,6 +17,7 @@ export const SUPPORTED_CHAINS: ChainId[] = [
   ChainId.AVALANCHE,
   ChainId.BASE,
   ChainId.HOLESKY,
+  ChainId.HOODI,
   ChainId.MORPH,
   // Gnosis and Moonbeam don't yet have contracts deployed yet
 ];
@@ -26,6 +27,7 @@ export const V2_SUPPORTED = [
   ChainId.GOERLI,
   ChainId.SEPOLIA,
   ChainId.HOLESKY,
+  ChainId.HOODI,
   ChainId.MORPH,
 ];
 
@@ -85,6 +87,8 @@ export const ID_TO_CHAIN_ID = (id: number): ChainId => {
       return ChainId.BASE_GOERLI;
     case 2810:
       return ChainId.HOLESKY;
+    case 2910:
+      return ChainId.HOODI;
     case 2818:
       return ChainId.MORPH;
     default:
@@ -111,6 +115,7 @@ export enum ChainName {
   BASE = 'base-mainnet',
   BASE_GOERLI = 'base-goerli',
   HOLESKY = 'morph-testnet',
+  HOODI = 'morph-testnet',
   MORPH = 'morph',
 }
 
@@ -193,6 +198,11 @@ export const NATIVE_NAMES_BY_ID: { [chainId: number]: string[] } = {
     'ETHER',
     '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
   ],
+  [ChainId.HOODI]: [
+    'ETH',
+    'ETHER',
+    '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+  ],
   [ChainId.MORPH]: [
     'ETH',
     'ETHER',
@@ -218,6 +228,7 @@ export const NATIVE_CURRENCY: { [chainId: number]: NativeCurrencyName } = {
   [ChainId.AVALANCHE]: NativeCurrencyName.AVALANCHE,
   [ChainId.BASE]: NativeCurrencyName.ETHER,
   [ChainId.HOLESKY]: NativeCurrencyName.ETHER,
+  [ChainId.HOODI]: NativeCurrencyName.ETHER,
   [ChainId.MORPH]: NativeCurrencyName.ETHER,
 };
 
@@ -259,6 +270,8 @@ export const ID_TO_NETWORK_NAME = (id: number): ChainName => {
       return ChainName.BASE_GOERLI;
     case 2810:
       return ChainName.HOLESKY;
+    case 2910:
+      return ChainName.HOODI;
     case 2818:
       return ChainName.MORPH;
     default:
@@ -302,6 +315,8 @@ export const ID_TO_PROVIDER = (id: ChainId): string => {
       return process.env.JSON_RPC_PROVIDER_BASE!;
     case ChainId.HOLESKY:
       return process.env.JSON_RPC_PROVIDER_HOLESKY!;
+    case ChainId.HOODI:
+      return process.env.JSON_RPC_PROVIDER_HOODI!;
     case ChainId.MORPH:
       return process.env.JSON_RPC_PROVIDER_MORPH!;
     default:
@@ -433,6 +448,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId in ChainId]: Token } = {
   ),
   [ChainId.HOLESKY]: new Token(
     ChainId.HOLESKY,
+    '0x5300000000000000000000000000000000000011',
+    18,
+    'WETH',
+    'Wrapped Ether'
+  ),
+  [ChainId.HOODI]: new Token(
+    ChainId.HOODI,
     '0x5300000000000000000000000000000000000011',
     18,
     'WETH',
@@ -648,6 +670,10 @@ function isHolesky(chainId: number): chainId is ChainId.HOLESKY {
   return chainId === ChainId.HOLESKY;
 }
 
+function isHoodi(chainId: number): chainId is ChainId.HOODI {
+  return chainId === ChainId.HOODI;
+}
+
 class HoleskyNativeCurrency extends NativeCurrency {
   equals(other: Currency): boolean {
     return other.isNative && other.chainId === this.chainId;
@@ -665,6 +691,26 @@ class HoleskyNativeCurrency extends NativeCurrency {
   public constructor(chainId: number) {
     if (!isHolesky(chainId)) throw new Error('Not Holesky');
     super(chainId, 18, 'WETH', 'Holesky');
+  }
+}
+
+class HoodiNativeCurrency extends NativeCurrency {
+  equals(other: Currency): boolean {
+    return other.isNative && other.chainId === this.chainId;
+  }
+
+  get wrapped(): Token {
+    if (!isHoodi(this.chainId)) throw new Error('Not Hoodi');
+    const nativeCurrency = WRAPPED_NATIVE_CURRENCY[this.chainId];
+    if (nativeCurrency) {
+      return nativeCurrency;
+    }
+    throw new Error(`Does not support this chain ${this.chainId}`);
+  }
+
+  public constructor(chainId: number) {
+    if (!isHoodi(chainId)) throw new Error('Not Hoodi');
+    super(chainId, 18, 'WETH', 'Hoodi');
   }
 }
 
@@ -707,6 +753,8 @@ export function nativeOnChain(chainId: number): NativeCurrency {
     cachedNativeCurrency[chainId] = new AvalancheNativeCurrency(chainId);
   } else if (isHolesky(chainId)) {
     cachedNativeCurrency[chainId] = new HoleskyNativeCurrency(chainId);
+  } else if (isHoodi(chainId)) {
+    cachedNativeCurrency[chainId] = new HoodiNativeCurrency(chainId);
   } else {
     cachedNativeCurrency[chainId] = ExtendedEther.onChain(chainId);
   }

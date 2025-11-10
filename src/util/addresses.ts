@@ -21,6 +21,7 @@ export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
   [ChainId.BASE_GOERLI]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE_GOERLI].v3CoreFactoryAddress,
   [ChainId.BASE]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE].v3CoreFactoryAddress,
   [ChainId.HOLESKY]: CHAIN_TO_ADDRESSES_MAP[ChainId.HOLESKY].v3CoreFactoryAddress,
+  [ChainId.HOODI]: CHAIN_TO_ADDRESSES_MAP[ChainId.HOODI].v3CoreFactoryAddress,
   [ChainId.MORPH]: CHAIN_TO_ADDRESSES_MAP[ChainId.MORPH].v3CoreFactoryAddress,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
@@ -37,6 +38,7 @@ export const QUOTER_V2_ADDRESSES: AddressMap = {
   [ChainId.BASE_GOERLI]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE_GOERLI].quoterAddress,
   [ChainId.BASE]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE].quoterAddress,
   [ChainId.HOLESKY]: CHAIN_TO_ADDRESSES_MAP[ChainId.HOLESKY].quoterAddress,
+  [ChainId.HOODI]: CHAIN_TO_ADDRESSES_MAP[ChainId.HOODI].quoterAddress,
   [ChainId.MORPH]: CHAIN_TO_ADDRESSES_MAP[ChainId.MORPH].quoterAddress,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
@@ -56,6 +58,7 @@ export const NEW_QUOTER_V2_ADDRESSES: AddressMap = {
   [ChainId.ZORA]: '0x9D0F15f2cf58655fDDcD1EE6129C547fDaeD01b1',
   [ChainId.ZKSYNC]: '0x071Bd2063dF031EDd110E27C6F4CDe50A3DeF2d4',
   [ChainId.HOLESKY]: '0x39471D2D3A8645E49800d693b7fC683156880Afd',
+  [ChainId.HOODI]: '0x12b085A63B31dC14Bb0fEf8bfEA251E220B243B8',
   [ChainId.MORPH]: '0xc312e6417D07Ae7Ba73FeF0832B1811194A7BbEf',
 };
 
@@ -76,6 +79,7 @@ export const UNISWAP_MULTICALL_ADDRESSES: AddressMap = {
   [ChainId.BASE_GOERLI]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE_GOERLI].multicallAddress,
   [ChainId.BASE]: CHAIN_TO_ADDRESSES_MAP[ChainId.BASE].multicallAddress,
   [ChainId.HOLESKY]: CHAIN_TO_ADDRESSES_MAP[ChainId.HOLESKY].multicallAddress,
+  [ChainId.HOODI]: CHAIN_TO_ADDRESSES_MAP[ChainId.HOODI].multicallAddress,
   [ChainId.MORPH]: CHAIN_TO_ADDRESSES_MAP[ChainId.MORPH].multicallAddress,
   // TODO: Gnosis + Moonbeam contracts to be deployed
 };
@@ -189,6 +193,13 @@ export const WETH9: {
   ),
   [ChainId.HOLESKY]: new Token(
     ChainId.HOLESKY,
+    '0x5300000000000000000000000000000000000011',
+    18,
+    'WETH',
+    'Wrapped Ether'
+  ),
+  [ChainId.HOODI]: new Token(
+    ChainId.HOODI,
     '0x5300000000000000000000000000000000000011',
     18,
     'WETH',
