@@ -115,7 +115,7 @@ export enum ChainName {
   BASE = 'base-mainnet',
   BASE_GOERLI = 'base-goerli',
   HOLESKY = 'morph-testnet',
-  HOODI = 'morph-testnet',
+  HOODI = 'morph-hoodi',
   MORPH = 'morph',
 }
 

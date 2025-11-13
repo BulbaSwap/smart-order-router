@@ -8,9 +8,6 @@ const DEFAULT_EIP_1559_SUPPORTED_CHAINS = [
   ChainId.MAINNET,
   ChainId.GOERLI,
   ChainId.POLYGON_MUMBAI,
-  ChainId.HOLESKY,
-  ChainId.MORPH,
-  ChainId.HOODI,
 ];
 
 /**
