@@ -28,10 +28,8 @@ export interface ITokenListProvider {
 export class CachingTokenListProvider
   implements ITokenProvider, ITokenListProvider {
   private CACHE_KEY = (tokenInfo: TokenInfo) =>
-    `token-list-token-${this.chainId}/${this.tokenList.name}/${
-      this.tokenList.timestamp
-    }/${this.tokenList.version}/${tokenInfo.address.toLowerCase()}/${
-      tokenInfo.decimals
+    `token-list-token-${this.chainId}/${this.tokenList.name}/${this.tokenList.timestamp
+    }/${this.tokenList.version}/${tokenInfo.address.toLowerCase()}/${tokenInfo.decimals
     }/${tokenInfo.symbol}/${tokenInfo.name}`;
 
   private chainId: ChainId;
