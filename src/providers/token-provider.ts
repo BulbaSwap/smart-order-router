@@ -564,7 +564,7 @@ export const USDC_HOLESKY = new Token(
 
 export const USDT_HOODI = new Token(
   ChainId.HOODI,
-  '0xF48EFcDb83c8478528bDDe96f1B8c736BBF5BC87',
+  '0xb646c743B4BA47ac03Bee360BB2484Fb55Db8d7e',
   6,
   'USDT',
   'Tether USD'

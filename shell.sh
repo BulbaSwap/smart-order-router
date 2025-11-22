@@ -1,4 +1,4 @@
-./bin/cli quote --tokenIn 0x5300000000000000000000000000000000000011 --tokenOut 0x67330f6bc8dce05816662785a89fb0611f6d149f --amount 200000000000 --exactIn --router alpha --chainId 2810 --debug
+./bin/cli quote --tokenIn 0x5300000000000000000000000000000000000011 --tokenOut 0x1178341838B764dCfFA5BCEAb1d41443Fd71a227 --amount 1000000000000000000 --recipient 0xc050D0478E6eaa623ded599eEAc7E24CCE36C17C --exactIn --chainId 2910 --debug --protocols v2
 
 # WETH -> Feet              failed
 # ./bin/cli quote --tokenIn 0x5300000000000000000000000000000000000011 --tokenOut 0x95368dbc528c6078c5fe10fb1211fd2a4a40732e --amount 200000000000 --exactIn --router alpha --chainId 2818 --debug
