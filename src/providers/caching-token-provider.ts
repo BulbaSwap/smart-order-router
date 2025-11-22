@@ -155,6 +155,7 @@ export const CACHE_SEED_TOKENS: {
     USDT: USDT_HOLESKY,
   },
   [ChainId.HOODI]: {
+    WETH: WRAPPED_NATIVE_CURRENCY[ChainId.HOODI],
     USDT: USDT_HOODI,
     USDC: USDC_HOODI,
   },
